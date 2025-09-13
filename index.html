@@ -411,7 +411,7 @@
             <div class="flex items-center mt-2">
                 <button id="post-like-button-9" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-9')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
+                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
                     </svg>
                     J'aime
                 </button>
@@ -459,185 +459,182 @@
 
     let userId = null;
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+    const postIds = ['post-1', 'post-2', 'post-3', 'post-4', 'post-5', 'post-6', 'post-7', 'post-8', 'post-9'];
 
-    // Attendre que l'authentification soit prête
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            userId = user.uid;
-            document.getElementById('user-id').textContent = userId;
-            
-            // Écouter les changements en temps réel sur le document des "j'aime" du profil
-            onSnapshot(likesDocRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    const likesData = docSnap.data();
-                    document.getElementById('like-count').textContent = likesData.count || 0;
+    window.onload = function() {
+        // Authentification de l'utilisateur
+        if (initialAuthToken) {
+            signInWithCustomToken(auth, initialAuthToken).catch(console.error);
+        } else {
+            signInAnonymously(auth).catch(console.error);
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userId = user.uid;
+                document.getElementById('user-id').textContent = userId;
+                
+                // Écouter les changements en temps réel sur le document des "j'aime" du profil
+                onSnapshot(likesDocRef, (docSnap) => {
+                    const likeCountSpan = document.getElementById('like-count');
+                    if (likeCountSpan) {
+                        const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
+                        likeCountSpan.textContent = likesData.count;
+                    }
+                });
+                
+                const likeButton = document.getElementById('like-button');
+                const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
+                const userLikedDoc = await getDoc(userLikedRef);
+
+                if (userLikedDoc.exists()) {
+                    likeButton.textContent = 'Aimé ! ❤️';
+                    likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                    likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
                 }
-            });
-            
-            const likeButton = document.getElementById('like-button');
-            const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
-            const userLikedDoc = await getDoc(userLikedRef);
 
-            if (userLikedDoc.exists()) {
-                likeButton.textContent = 'Aimé ! ❤️';
-                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                likeButton.addEventListener('click', async () => {
+                    const likedDoc = await getDoc(userLikedRef);
+                    if (likedDoc.exists()) {
+                        likeButton.textContent = 'Déjà aimé !';
+                        return;
+                    }
+                    await setDoc(userLikedRef, { likedAt: new Date() });
+                    
+                    let currentCount = 0;
+                    const likesDoc = await getDoc(likesDocRef);
+                    if (likesDoc.exists()) {
+                        currentCount = likesDoc.data().count;
+                    }
+                    await setDoc(likesDocRef, { count: currentCount + 1 });
+                    
+                    likeButton.textContent = 'Aimé ! ❤️';
+                    likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                    likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                });
+
+                // Écouter les changements pour chaque publication
+                postIds.forEach(postId => {
+                    // Likes des publications
+                    const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
+                    onSnapshot(postLikesDocRef, (docSnap) => {
+                        const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
+                        if (postLikeCountSpan) {
+                            const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
+                            postLikeCountSpan.textContent = likesData.count;
+                        }
+                    });
+
+                    // Commentaires des publications
+                    const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
+                    onSnapshot(commentsCollectionRef, (querySnapshot) => {
+                        const commentsContainer = document.getElementById(`comments-container-post-${postId.split('-')[1]}`);
+                        const commentCountSpan = document.getElementById(`comment-count-${postId.split('-')[1]}`);
+                        
+                        if (commentsContainer && commentCountSpan) {
+                            commentsContainer.innerHTML = '';
+                            const comments = [];
+                            querySnapshot.forEach((doc) => {
+                                comments.push(doc.data());
+                            });
+                            
+                            commentCountSpan.textContent = comments.length;
+
+                            // Tri des commentaires par horodatage (le plus récent en premier)
+                            comments.sort((a, b) => {
+                              if (!a.timestamp) return 1;
+                              if (!b.timestamp) return -1;
+                              return b.timestamp.toMillis() - a.timestamp.toMillis();
+                            });
+                            
+                            comments.forEach(comment => {
+                                const commentDiv = document.createElement('div');
+                                commentDiv.className = 'bg-gray-200 p-2 rounded-md mb-2';
+                                commentDiv.innerHTML = `<p class="font-semibold text-xs text-gray-800">${comment.pseudo}</p><p class="mt-1">${comment.text}</p>`;
+                                commentsContainer.appendChild(commentDiv);
+                            });
+                        }
+                    });
+
+                    // Mettre à jour les boutons de "j'aime" des publications au chargement
+                    const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
+                    getDoc(postUserLikedRef).then(likedDoc => {
+                        const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
+                        if(likedDoc.exists() && postLikeButton) {
+                            postLikeButton.textContent = 'Aimé ! ❤️';
+                            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                        }
+                    });
+                });
+            }
+        });
+
+        // Fonction pour gérer les likes de chaque publication
+        window.handlePostLike = async (postId) => {
+            const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
+            const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
+            const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
+
+            const likedDoc = await getDoc(postUserLikedRef);
+            if (likedDoc.exists()) {
+                postLikeButton.textContent = 'Déjà aimé !';
+                return;
             }
 
-            likeButton.addEventListener('click', async () => {
-                const likedDoc = await getDoc(userLikedRef);
-                if (likedDoc.exists()) {
-                    likeButton.textContent = 'Déjà aimé !';
-                    return;
-                }
-                await setDoc(userLikedRef, { likedAt: new Date() });
-                
-                let currentCount = 0;
-                const likesDoc = await getDoc(likesDocRef);
-                if (likesDoc.exists()) {
-                    currentCount = likesDoc.data().count;
-                }
-                await setDoc(likesDocRef, { count: currentCount + 1 });
-                
-                likeButton.textContent = 'Aimé ! ❤️';
-                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-            });
+            await setDoc(postUserLikedRef, { likedAt: new Date() });
 
-            // Fonction pour gérer les likes de chaque publication
-            window.handlePostLike = async (postId) => {
-                const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-                const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-                const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
+            let currentCount = 0;
+            const postLikesDoc = await getDoc(postLikesDocRef);
+            if (postLikesDoc.exists()) {
+                currentCount = postLikesDoc.data().count;
+            }
+            await setDoc(postLikesDocRef, { count: currentCount + 1 });
+            
+            postLikeButton.textContent = 'Aimé ! ❤️';
+            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+        };
 
-                const likedDoc = await getDoc(postUserLikedRef);
-                if (likedDoc.exists()) {
-                    postLikeButton.textContent = 'Déjà aimé !';
-                    return;
-                }
+        // Fonction pour afficher/masquer le champ de commentaires
+        window.toggleComments = (postId) => {
+            const commentsSection = document.getElementById(`comments-section-${postId}`);
+            if (commentsSection) {
+                commentsSection.classList.toggle('hidden');
+            }
+        };
 
-                await setDoc(postUserLikedRef, { likedAt: new Date() });
+        // Fonction pour ajouter un commentaire
+        window.handleCommentSubmit = async (event, postId) => {
+            event.preventDefault();
+            const pseudo = event.target.querySelector('input').value.trim();
+            const commentText = event.target.querySelector('textarea').value.trim();
 
-                let currentCount = 0;
-                const postLikesDoc = await getDoc(postLikesDocRef);
-                if (postLikesDoc.exists()) {
-                    currentCount = postLikesDoc.data().count;
-                }
-                await setDoc(postLikesDocRef, { count: currentCount + 1 });
-                
-                postLikeButton.textContent = 'Aimé ! ❤️';
-                postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-            };
-
-            // Fonction pour afficher/masquer le champ de commentaires
-            window.toggleComments = (postId) => {
-                const commentsSection = document.getElementById(`comments-section-${postId}`);
-                if (commentsSection) {
-                    commentsSection.classList.toggle('hidden');
-                }
-            };
-
-            // Fonction pour ajouter un commentaire
-            window.handleCommentSubmit = async (event, postId) => {
-                event.preventDefault();
-                const pseudo = event.target.querySelector('input').value.trim();
-                const commentText = event.target.querySelector('textarea').value.trim();
-
-                if (commentText.length > 0 && pseudo.length > 0) {
-                    const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                    await addDoc(commentsCollectionRef, {
-                        userId: userId,
-                        pseudo: pseudo,
-                        text: commentText,
-                        timestamp: serverTimestamp()
-                    });
-                    event.target.reset(); // Réinitialiser le formulaire
-                }
-            };
-
-            // Écouter les changements pour chaque publication
-            const postIds = ['post-1', 'post-2', 'post-3', 'post-4', 'post-5', 'post-6', 'post-7', 'post-8', 'post-9'];
-            postIds.forEach(postId => {
-                // Likes des publications
-                const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-                onSnapshot(postLikesDocRef, (docSnap) => {
-                    const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
-                    if (postLikeCountSpan) {
-                        const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
-                        postLikeCountSpan.textContent = likesData.count;
-                    }
-                });
-
-                // Commentaires des publications
+            if (commentText.length > 0 && pseudo.length > 0) {
                 const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                onSnapshot(commentsCollectionRef, (querySnapshot) => {
-                    const commentsContainer = document.getElementById(`comments-container-post-${postId.split('-')[1]}`);
-                    const commentCountSpan = document.getElementById(`comment-count-${postId.split('-')[1]}`);
-                    
-                    if (commentsContainer && commentCountSpan) {
-                        commentsContainer.innerHTML = '';
-                        const comments = [];
-                        querySnapshot.forEach((doc) => {
-                            comments.push(doc.data());
-                        });
-                        
-                        commentCountSpan.textContent = comments.length;
-
-                        // Tri des commentaires par horodatage (le plus récent en premier)
-                        comments.sort((a, b) => {
-                          if (!a.timestamp) return 1;
-                          if (!b.timestamp) return -1;
-                          return b.timestamp.toMillis() - a.timestamp.toMillis();
-                        });
-                        
-                        comments.forEach(comment => {
-                            const commentDiv = document.createElement('div');
-                            commentDiv.className = 'bg-gray-200 p-2 rounded-md mb-2';
-                            commentDiv.innerHTML = `<p class="font-semibold text-xs text-gray-800">${comment.pseudo}</p><p class="mt-1">${comment.text}</p>`;
-                            commentsContainer.appendChild(commentDiv);
-                        });
-                    }
+                await addDoc(commentsCollectionRef, {
+                    userId: userId,
+                    pseudo: pseudo,
+                    text: commentText,
+                    timestamp: serverTimestamp()
                 });
-            });
+                event.target.reset(); // Réinitialiser le formulaire
+            }
+        };
 
-            // Mettre à jour les boutons de "j'aime" des publications au chargement
-            postIds.forEach(async postId => {
-                const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-                const likedDoc = await getDoc(postUserLikedRef);
-                if (likedDoc.exists()) {
-                    const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
-                    if(postLikeButton) {
-                        postLikeButton.textContent = 'Aimé ! ❤️';
-                        postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                        postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                    }
-                }
-            });
+        // Fonctions pour la modale d'image
+        window.openImageModal = function(src) {
+            const modal = document.getElementById('imageModal');
+            const enlargedImage = document.getElementById('enlargedImage');
+            enlargedImage.src = src;
+            modal.style.display = 'flex';
         }
-    });
 
-    // Authentification de l'utilisateur
-    if (initialAuthToken) {
-        signInWithCustomToken(auth, initialAuthToken).catch(console.error);
-    } else {
-        signInAnonymously(auth).catch(console.error);
-    }
-</script>
-
-<!-- Script pour la modale d'image (accessible globalement) -->
-<script>
-    function openImageModal(src) {
-        const modal = document.getElementById('imageModal');
-        const enlargedImage = document.getElementById('enlargedImage');
-        enlargedImage.src = src;
-        modal.style.display = 'flex';
-    }
-
-    function closeImageModal() {
-        const modal = document.getElementById('imageModal');
-        modal.style.display = 'none';
-    }
+        window.closeImageModal = function() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+    };
 </script>
 
 </body>
