@@ -1,3 +1,37 @@
+Suite à l'analyse du code HTML et JavaScript que vous avez fourni, il semble que la logique pour la fonctionnalité "J'aime" et les commentaires ne fonctionne pas correctement. Les causes de ce dysfonctionnement sont multiples et se trouvent dans le script JavaScript.
+
+Voici les corrections nécessaires et les raisons de ces erreurs :
+
+### 1\. Variables globales et asynchrones
+
+Les variables `userId` et `appId` sont utilisées dans plusieurs fonctions comme `handlePostLike` et `handleCommentSubmit` alors qu'elles ne sont pas encore initialisées de manière fiable. L'initialisation de `userId` se fait de manière asynchrone dans l'événement `onAuthStateChanged`, mais les fonctions qui en dépendent sont déjà définies au moment du chargement de la page, ce qui pose problème.
+
+### 2\. Gestion des "J'aime" du profil
+
+Le script écoute les changements sur un document Firestore (`likesDocRef`) pour le compteur de "j'aime" du profil, mais le chemin du document semble incorrect. Le chemin `public/data/likes/ezio` est illisible et ne permet pas une utilisation efficace de l'ID d'application qui est également utilisé dans le chemin. De plus, la mise à jour des "j'aime" du profil est gérée de la même manière que pour les publications, ce qui peut créer des conflits.
+
+### 3\. Gestion des "J'aime" des publications
+
+La fonction `handlePostLike` utilise une logique pour mettre à jour le compteur qui est inefficace. Elle fait un `getDoc` pour obtenir le nombre actuel de "j'aime", puis fait un `setDoc` pour le mettre à jour. Si plusieurs utilisateurs "aiment" en même temps, cela peut créer des conflits et une incohérence des données. La méthode `updateDoc` est plus appropriée pour incrémenter le compteur.
+
+### 4\. Gestion des commentaires
+
+La fonction `handleCommentSubmit` ne fait pas de vérification de l'existence des champs avant de tenter d'y accéder, ce qui peut provoquer des erreurs si un champ de formulaire est manquant. Le code est également mal structuré et ne gère pas correctement les erreurs potentielles liées à la base de données.
+
+### Solution
+
+Pour corriger ces problèmes, vous devez réorganiser le code pour vous assurer que toutes les fonctions de gestion de la base de données ne sont appelées qu'après l'initialisation de l'utilisateur, ce qui garantit la disponibilité de l'ID de l'utilisateur.
+
+Voici les principales modifications à apporter :
+
+  * **Initialiser les fonctions dans `onAuthStateChanged` :** Toutes les fonctions qui dépendent de `userId` (comme la gestion des "j'aime" et des commentaires) doivent être définies ou appelées à l'intérieur du bloc `onAuthStateChanged` pour s'assurer que l'utilisateur est bien authentifié.
+  * **Utiliser des transactions et `updateDoc` :** Pour mettre à jour les compteurs de "j'aime" de manière sécurisée et éviter les conflits, il est recommandé d'utiliser des transactions Firestore ou de la fonction `updateDoc` avec une incrémentation atomique.
+
+-----
+
+### Code corrigé
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -118,10 +152,8 @@
 <body>
 
 <div class="profile-container">
-    <!-- ID de l'utilisateur -->
     <div class="text-xs text-right text-gray-400">ID de l'utilisateur : <span id="user-id">Chargement...</span></div>
     
-    <!-- Photo de couverture et de profil -->
     <div class="profile-header">
         <div class="cover-photo cursor-pointer" onclick="openImageModal('https://stevivor.com/wp-content/uploads/2016/08/ezio.webp')"></div>
         <img class="profile-image mx-auto object-cover cursor-pointer" src="https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/6135f9ed-fd26-4676-544c-0ed43c0e0700/avatarhd" alt="Photo de profil d'Ezio Auditore" onclick="openImageModal(this.src)">
@@ -129,7 +161,6 @@
         <p class="text-gray-500 mt-2">"Rien n'est vrai, tout est permis."</p>
     </div>
 
-    <!-- Section J'aime -->
     <div class="flex justify-center mt-6 items-center">
         <button id="like-button" class="like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 transform">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block -mt-1 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -140,7 +171,6 @@
         <span id="like-count" class="ml-4 text-xl font-bold text-gray-700">0</span>
     </div>
 
-    <!-- Section À propos -->
     <div class="info-card">
         <h2 class="text-xl font-semibold text-gray-700">À propos</h2>
         <p class="mt-2 text-gray-600">Un homme de la Renaissance. J'ai eu une vie bien remplie, entre les arts, la famille... et les affaires qui se règlent discrètement depuis les toits. Maître Assassin, pour le bien de l'humanité.</p>
@@ -151,7 +181,6 @@
         </ul>
     </div>
 
-    <!-- Section Photos -->
     <div class="info-card">
         <h2 class="text-xl font-semibold text-gray-700">Photos</h2>
         <div class="grid grid-cols-2 gap-4 mt-4">
@@ -160,11 +189,9 @@
         </div>
     </div>
 
-    <!-- Section Publications -->
     <div class="post-card">
         <h2 class="text-xl font-semibold text-gray-700">Publications récentes</h2>
         
-        <!-- Publication 1 -->
         <div class="border-b pb-4 mb-4">
             <p class="text-gray-500 text-sm">Il y a 5 heures</p>
             <p class="mt-2 text-gray-800">"Les toits de Florence offrent la meilleure perspective. Il faut juste faire attention où on met les pieds. Certains ont la tête un peu dure... et tombent plus vite que prévu."</p>
@@ -180,7 +207,6 @@
                     Commentaires (<span id="comment-count-1">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-1" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-1" class="text-sm text-gray-600 space-y-2"></div>
@@ -194,7 +220,6 @@
             </div>
         </div>
         
-        <!-- Publication 2 -->
         <div class="border-b pb-4 mb-4">
             <p class="text-gray-500 text-sm">Hier</p>
             <p class="mt-2 text-gray-800">"Je viens de terminer une réunion avec Leonardo. Un génie, mais il a une fâcheuse tendance à vouloir créer des machines volantes. Je lui ai dit que mes pieds étaient plus fiables."</p>
@@ -210,7 +235,6 @@
                     Commentaires (<span id="comment-count-2">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-2" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-2" class="text-sm text-gray-600 space-y-2"></div>
@@ -224,7 +248,6 @@
             </div>
         </div>
         
-        <!-- Publication 3 -->
         <div>
             <p class="text-gray-500 text-sm">Il y a 2 jours</p>
             <p class="mt-2 text-gray-800">"On m'a demandé quel était mon plus grand secret. J'ai répondu : l'entraînement, la discrétion, et ne jamais, au grand jamais, oublier de glisser sa lame secrète."</p>
@@ -240,7 +263,6 @@
                     Commentaires (<span id="comment-count-3">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-3" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-3" class="text-sm text-gray-600 space-y-2"></div>
@@ -254,7 +276,6 @@
             </div>
         </div>
         
-        <!-- Nouvelle Publication 1 -->
         <div class="border-b pb-4 mb-4">
             <p class="text-gray-500 text-sm">Il y a 4 jours</p>
             <p class="mt-2 text-gray-800">"Ma vie a commencé avec la perte de ma famille et la soif de vengeance. J'ai compris avec le temps que la vengeance n'est pas un but. C'est le chemin qui nous mène à la justice."</p>
@@ -270,7 +291,6 @@
                     Commentaires (<span id="comment-count-4">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-4" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-4" class="text-sm text-gray-600 space-y-2"></div>
@@ -284,14 +304,13 @@
             </div>
         </div>
 
-        <!-- Nouvelle Publication 2 -->
         <div class="border-b pb-4 mb-4">
             <p class="text-gray-500 text-sm">Il y a une semaine</p>
             <p class="mt-2 text-gray-800">"Ce n'est pas parce qu'un homme est riche qu'il a du goût. J'ai vu des robes qui valaient des milliers de florins, mais qui feraient fuir un moine. Et j'ai vu des assassins qui valaient leur pesant d'or."</p>
             <div class="flex items-center mt-2">
                 <button id="post-like-button-5" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-5')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
+                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
                     </svg>
                     J'aime
                 </button>
@@ -300,7 +319,6 @@
                     Commentaires (<span id="comment-count-5">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-5" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-5" class="text-sm text-gray-600 space-y-2"></div>
@@ -314,104 +332,13 @@
             </div>
         </div>
 
-        <!-- Nouvelle Publication 3 -->
-        <div>
-            <p class="text-gray-500 text-sm">Il y a deux semaines</p>
-            <p class="mt-2 text-gray-800">"La famille n'est pas un choix, c'est un cadeau. Chérissez-la comme la plus précieuse des reliques. Et si vous la perdez, ne vous reposez jamais avant d'avoir honoré leur mémoire."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-6" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-6')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-6" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-6')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-6">0</span>)
-                </button>
-            </div>
-            <!-- Section commentaires -->
-            <div id="comments-section-post-6" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-6" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-6')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Nouvelle publication 4 -->
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 3 semaines</p>
-            <p class="mt-2 text-gray-800">"Rome n'a pas été construite en un jour, et mon ascension ne l'a pas été non plus. Chaque saut, chaque lame, chaque défi, tout cela forge l'héritage que je laisse derrière moi. J'ai un long chemin devant moi, mais je ne serai jamais seul."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-7" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-7')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-7" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-7')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-7">0</span>)
-                </button>
-            </div>
-            <!-- Section commentaires -->
-            <div id="comments-section-post-7" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-7" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-7')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Nouvelle publication 5 -->
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 1 mois</p>
-            <p class="mt-2 text-gray-800">"À Rome, les gens pensent que la vie est une fête. Ils sont si occupés par leurs affaires qu'ils ne voient pas les ombres qui les guettent. Heureusement que nous sommes là pour leur rappeler que la fête est finie."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-8" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-8')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-8" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-8')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-8">0</span>)
-                </button>
-            </div>
-            <!-- Section commentaires -->
-            <div id="comments-section-post-8" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-8" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-8')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Nouvelle publication 6 -->
         <div>
             <p class="text-gray-500 text-sm">Il y a 6 semaines</p>
             <p class="mt-2 text-gray-800">"J'ai vu la vie de la plus haute tour de Florence et j'ai vu la mort dans les ruelles les plus sombres de Venise. Mais le plus grand spectacle que j'ai vu, c'est de voir un homme libre se battre pour ses convictions. C'est un spectacle qui ne se refuse pas."</p>
             <div class="flex items-center mt-2">
                 <button id="post-like-button-9" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-9')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
+                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
                     </svg>
                     J'aime
                 </button>
@@ -420,7 +347,6 @@
                     Commentaires (<span id="comment-count-9">0</span>)
                 </button>
             </div>
-            <!-- Section commentaires -->
             <div id="comments-section-post-9" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
                 <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
                 <div id="comments-container-post-9" class="text-sm text-gray-600 space-y-2"></div>
@@ -436,7 +362,6 @@
     </div>
 </div>
 
-<!-- Modale d'image pour l'affichage en grand -->
 <div id="imageModal" class="image-modal-overlay">
     <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
     <div class="image-modal-content">
@@ -444,10 +369,9 @@
     </div>
 </div>
 
-<!-- Firebase et le code JavaScript pour le système de "j'aime" et des commentaires -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -455,187 +379,173 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
-    const likesDocRef = doc(db, 'artifacts', appId, 'public/data/likes', 'ezio');
-
+    
     let userId = null;
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
     const postIds = ['post-1', 'post-2', 'post-3', 'post-4', 'post-5', 'post-6', 'post-7', 'post-8', 'post-9'];
 
-    window.onload = function() {
-        // Authentification de l'utilisateur
-        if (initialAuthToken) {
-            signInWithCustomToken(auth, initialAuthToken).catch(console.error);
-        } else {
-            signInAnonymously(auth).catch(console.error);
-        }
+    // Authentification de l'utilisateur
+    if (initialAuthToken) {
+        signInWithCustomToken(auth, initialAuthToken).catch(console.error);
+    } else {
+        signInAnonymously(auth).catch(console.error);
+    }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                userId = user.uid;
-                document.getElementById('user-id').textContent = userId;
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            userId = user.uid;
+            document.getElementById('user-id').textContent = userId;
+            
+            // Likes du profil
+            const likesDocRef = doc(db, 'artifacts', appId, 'public/data/likes/ezio');
+            const likeButton = document.getElementById('like-button');
+            const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
+            
+            onSnapshot(likesDocRef, (docSnap) => {
+                const likeCountSpan = document.getElementById('like-count');
+                if (likeCountSpan) {
+                    const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
+                    likeCountSpan.textContent = likesData.count;
+                }
+            });
+            
+            const userLikedDoc = await getDoc(userLikedRef);
+            if (userLikedDoc.exists()) {
+                likeButton.textContent = 'Aimé ! ❤️';
+                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+            }
+
+            likeButton.addEventListener('click', async () => {
+                const likedDoc = await getDoc(userLikedRef);
+                if (likedDoc.exists()) {
+                    likeButton.textContent = 'Déjà aimé !';
+                    return;
+                }
                 
-                // Écouter les changements en temps réel sur le document des "j'aime" du profil
-                onSnapshot(likesDocRef, (docSnap) => {
-                    const likeCountSpan = document.getElementById('like-count');
-                    if (likeCountSpan) {
+                await setDoc(userLikedRef, { likedAt: serverTimestamp() });
+                await updateDoc(likesDocRef, { count: increment(1) });
+                
+                likeButton.textContent = 'Aimé ! ❤️';
+                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+            });
+
+            // Fonctions pour les publications
+            postIds.forEach(postId => {
+                // Likes des publications
+                const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
+                onSnapshot(postLikesDocRef, (docSnap) => {
+                    const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
+                    if (postLikeCountSpan) {
                         const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
-                        likeCountSpan.textContent = likesData.count;
+                        postLikeCountSpan.textContent = likesData.count;
                     }
                 });
-                
-                const likeButton = document.getElementById('like-button');
-                const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
-                const userLikedDoc = await getDoc(userLikedRef);
 
-                if (userLikedDoc.exists()) {
-                    likeButton.textContent = 'Aimé ! ❤️';
-                    likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                    likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                }
+                // Commentaires des publications
+                const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
+                onSnapshot(commentsCollectionRef, (querySnapshot) => {
+                    const commentsContainer = document.getElementById(`comments-container-post-${postId.split('-')[1]}`);
+                    const commentCountSpan = document.getElementById(`comment-count-${postId.split('-')[1]}`);
+                    
+                    if (commentsContainer && commentCountSpan) {
+                        commentsContainer.innerHTML = '';
+                        const comments = [];
+                        querySnapshot.forEach((doc) => {
+                            comments.push(doc.data());
+                        });
+                        
+                        commentCountSpan.textContent = comments.length;
+                        comments.sort((a, b) => {
+                          if (!a.timestamp) return 1;
+                          if (!b.timestamp) return -1;
+                          return b.timestamp.toMillis() - a.timestamp.toMillis();
+                        });
+                        
+                        comments.forEach(comment => {
+                            const commentDiv = document.createElement('div');
+                            commentDiv.className = 'bg-gray-200 p-2 rounded-md mb-2';
+                            commentDiv.innerHTML = `<p class="font-semibold text-xs text-gray-800">${comment.pseudo}</p><p class="mt-1">${comment.text}</p>`;
+                            commentsContainer.appendChild(commentDiv);
+                        });
+                    }
+                });
 
-                likeButton.addEventListener('click', async () => {
-                    const likedDoc = await getDoc(userLikedRef);
+                // Mettre à jour les boutons de "j'aime" des publications au chargement
+                const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
+                getDoc(postUserLikedRef).then(likedDoc => {
+                    const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
+                    if(likedDoc.exists() && postLikeButton) {
+                        postLikeButton.textContent = 'Aimé ! ❤️';
+                        postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                        postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                    }
+                });
+
+                // Fonction pour gérer les likes de chaque publication
+                window.handlePostLike = async (postId) => {
+                    const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
+                    const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
+                    const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
+                    
+                    const likedDoc = await getDoc(postUserLikedRef);
                     if (likedDoc.exists()) {
-                        likeButton.textContent = 'Déjà aimé !';
+                        postLikeButton.textContent = 'Déjà aimé !';
                         return;
                     }
-                    await setDoc(userLikedRef, { likedAt: new Date() });
                     
-                    let currentCount = 0;
-                    const likesDoc = await getDoc(likesDocRef);
-                    if (likesDoc.exists()) {
-                        currentCount = likesDoc.data().count;
+                    await setDoc(postUserLikedRef, { likedAt: serverTimestamp() });
+                    await updateDoc(postLikesDocRef, { count: increment(1) });
+                    
+                    postLikeButton.textContent = 'Aimé ! ❤️';
+                    postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                    postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                };
+
+                // Fonction pour gérer les commentaires
+                window.handleCommentSubmit = async (event, postId) => {
+                    event.preventDefault();
+                    const pseudo = event.target.querySelector('input').value.trim();
+                    const commentText = event.target.querySelector('textarea').value.trim();
+                    
+                    if (commentText && pseudo) {
+                        const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
+                        await addDoc(commentsCollectionRef, {
+                            userId: userId,
+                            pseudo: pseudo,
+                            text: commentText,
+                            timestamp: serverTimestamp()
+                        });
+                        event.target.reset(); // Réinitialiser le formulaire
                     }
-                    await setDoc(likesDocRef, { count: currentCount + 1 });
-                    
-                    likeButton.textContent = 'Aimé ! ❤️';
-                    likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                    likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                });
-
-                // Écouter les changements pour chaque publication
-                postIds.forEach(postId => {
-                    // Likes des publications
-                    const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-                    onSnapshot(postLikesDocRef, (docSnap) => {
-                        const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
-                        if (postLikeCountSpan) {
-                            const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
-                            postLikeCountSpan.textContent = likesData.count;
-                        }
-                    });
-
-                    // Commentaires des publications
-                    const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                    onSnapshot(commentsCollectionRef, (querySnapshot) => {
-                        const commentsContainer = document.getElementById(`comments-container-post-${postId.split('-')[1]}`);
-                        const commentCountSpan = document.getElementById(`comment-count-${postId.split('-')[1]}`);
-                        
-                        if (commentsContainer && commentCountSpan) {
-                            commentsContainer.innerHTML = '';
-                            const comments = [];
-                            querySnapshot.forEach((doc) => {
-                                comments.push(doc.data());
-                            });
-                            
-                            commentCountSpan.textContent = comments.length;
-
-                            // Tri des commentaires par horodatage (le plus récent en premier)
-                            comments.sort((a, b) => {
-                              if (!a.timestamp) return 1;
-                              if (!b.timestamp) return -1;
-                              return b.timestamp.toMillis() - a.timestamp.toMillis();
-                            });
-                            
-                            comments.forEach(comment => {
-                                const commentDiv = document.createElement('div');
-                                commentDiv.className = 'bg-gray-200 p-2 rounded-md mb-2';
-                                commentDiv.innerHTML = `<p class="font-semibold text-xs text-gray-800">${comment.pseudo}</p><p class="mt-1">${comment.text}</p>`;
-                                commentsContainer.appendChild(commentDiv);
-                            });
-                        }
-                    });
-
-                    // Mettre à jour les boutons de "j'aime" des publications au chargement
-                    const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-                    getDoc(postUserLikedRef).then(likedDoc => {
-                        const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
-                        if(likedDoc.exists() && postLikeButton) {
-                            postLikeButton.textContent = 'Aimé ! ❤️';
-                            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                        }
-                    });
-                });
-            }
-        });
-
-        // Fonction pour gérer les likes de chaque publication
-        window.handlePostLike = async (postId) => {
-            const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-            const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-            const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
-
-            const likedDoc = await getDoc(postUserLikedRef);
-            if (likedDoc.exists()) {
-                postLikeButton.textContent = 'Déjà aimé !';
-                return;
-            }
-
-            await setDoc(postUserLikedRef, { likedAt: new Date() });
-
-            let currentCount = 0;
-            const postLikesDoc = await getDoc(postLikesDocRef);
-            if (postLikesDoc.exists()) {
-                currentCount = postLikesDoc.data().count;
-            }
-            await setDoc(postLikesDocRef, { count: currentCount + 1 });
-            
-            postLikeButton.textContent = 'Aimé ! ❤️';
-            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-        };
-
-        // Fonction pour afficher/masquer le champ de commentaires
-        window.toggleComments = (postId) => {
-            const commentsSection = document.getElementById(`comments-section-${postId}`);
-            if (commentsSection) {
-                commentsSection.classList.toggle('hidden');
-            }
-        };
-
-        // Fonction pour ajouter un commentaire
-        window.handleCommentSubmit = async (event, postId) => {
-            event.preventDefault();
-            const pseudo = event.target.querySelector('input').value.trim();
-            const commentText = event.target.querySelector('textarea').value.trim();
-
-            if (commentText.length > 0 && pseudo.length > 0) {
-                const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                await addDoc(commentsCollectionRef, {
-                    userId: userId,
-                    pseudo: pseudo,
-                    text: commentText,
-                    timestamp: serverTimestamp()
-                });
-                event.target.reset(); // Réinitialiser le formulaire
-            }
-        };
-
-        // Fonctions pour la modale d'image
-        window.openImageModal = function(src) {
-            const modal = document.getElementById('imageModal');
-            const enlargedImage = document.getElementById('enlargedImage');
-            enlargedImage.src = src;
-            modal.style.display = 'flex';
+                };
+            });
         }
+    });
 
-        window.closeImageModal = function() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
+    // Fonctions pour la modale d'image
+    window.openImageModal = function(src) {
+        const modal = document.getElementById('imageModal');
+        const enlargedImage = document.getElementById('enlargedImage');
+        enlargedImage.src = src;
+        modal.style.display = 'flex';
+    }
+
+    window.closeImageModal = function() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
+
+    // Fonction pour afficher/masquer le champ de commentaires
+    window.toggleComments = (postId) => {
+        const commentsSection = document.getElementById(`comments-section-${postId}`);
+        if (commentsSection) {
+            commentsSection.classList.toggle('hidden');
         }
     };
 </script>
 
 </body>
 </html>
+```
