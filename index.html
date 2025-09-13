@@ -34,6 +34,9 @@
             padding: 2rem;
             color: var(--color-text);
         }
+        .profile-header {
+            text-align: center;
+        }
         .profile-image {
             width: 150px;
             height: 150px;
@@ -109,6 +112,73 @@
         }
         .image-modal-close:hover {
             color: #bbb;
+        }
+        /* Styles pour le chat IA */
+        .chat-container {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow: hidden;
+            display: none; /* Cache par défaut */
+        }
+        .chat-header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #f9fafb;
+        }
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+        }
+        .chat-input input {
+            flex-grow: 1;
+            border: 1px solid #d1d5db;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+        }
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-end;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.user .bubble {
+            background-color: #8C4B4B;
+            color: white;
+            border-radius: 12px 12px 0 12px;
+        }
+        .message.ezio .bubble {
+            background-color: #e5e7eb;
+            color: #2D2D2D;
+            border-radius: 12px 12px 12px 0;
+        }
+        .message .bubble {
+            padding: 0.75rem 1rem;
+            max-width: 75%;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -332,10 +402,31 @@
     </div>
 </div>
 
+<button onclick="toggleChat()" class="fixed bottom-4 right-4 bg-yellow-700 hover:bg-yellow-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 transform z-50">
+    Parler à Ezio
+</button>
+
+<div id="chat-container" class="chat-container">
+    <div class="chat-header">
+        <h3 class="font-bold">Ezio Auditore</h3>
+        <button onclick="toggleChat()" class="text-white text-xl leading-none">&times;</button>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+        <div class="message ezio">
+            <div class="bubble">"Bonjour. Quels mystères cherchez-vous à élucider ?"</div>
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="chat-input-field" placeholder="Écrivez votre message..." onkeydown="handleChatInput(event)">
+        <button onclick="sendMessage()" class="bg-yellow-700 hover:bg-yellow-800 text-white font-bold py-2 px-4 rounded-full transition duration-300">Envoyer</button>
+    </div>
+</div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment, deleteDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
     // VOTRE CONFIGURATION FIREBASE PERSONNELLE
     const firebaseConfig = {
@@ -347,6 +438,58 @@
         appId: "1:217869367805:web:778c0b523c311ed0990194",
         measurementId: "G-LYHPHBWQZ6"
     };
+
+    // Votre clé API Gemini
+    const GEMINI_API_KEY = "AIzaSyC2Vz_Q8Xz...C25C2g";
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const chatHistory = [{ role: "model", parts: [{ text: "Bonjour. Quels mystères cherchez-vous à élucider ?" }] }];
+    const chat = model.startChat({
+        history: chatHistory,
+        generationConfig: { maxOutputTokens: 500 },
+        systemInstruction: "Tu es Ezio Auditore da Firenze, le célèbre maître Assassin de la Renaissance Italienne. Ton ton est confiant, sage, et parfois un peu taquin. Tu parles de ton époque, de ta famille, de tes amis (comme Leonardo da Vinci), de l'Ordre des Assassins et de ses préceptes. Tu fais référence à ton expérience en tant qu'Assassin. Ne dis jamais que tu es une intelligence artificielle ou un modèle de langage. Reste toujours dans le rôle d'Ezio."
+    });
+
+    // Fonctions pour le chat
+    async function sendMessage() {
+        const inputField = document.getElementById('chat-input-field');
+        const userMessage = inputField.value.trim();
+        if (userMessage === '') return;
+
+        displayMessage(userMessage, 'user');
+        inputField.value = '';
+
+        try {
+            const result = await chat.sendMessage(userMessage);
+            const response = await result.response;
+            const text = response.text();
+            displayMessage(text, 'ezio');
+        } catch (error) {
+            console.error("Erreur Gemini :", error);
+            displayMessage("Désolé, je suis occupé à surveiller les toits. Réessayez plus tard.", 'ezio');
+        }
+    }
+
+    function displayMessage(message, sender) {
+        const chatMessages = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        messageDiv.innerHTML = `<div class="bubble">${message}</div>`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll vers le bas
+    }
+
+    function handleChatInput(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    function toggleChat() {
+        const chatContainer = document.getElementById('chat-container');
+        chatContainer.style.display = chatContainer.style.display === 'flex' ? 'none' : 'flex';
+    }
+
 
     const appId = firebaseConfig.appId;
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -374,11 +517,17 @@
             const likeButton = document.getElementById('like-button');
             const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
             
+            // Crée le document du compteur si nécessaire
+            const likesData = (await getDoc(likesDocRef)).data();
+            if (!likesData) {
+                await setDoc(likesDocRef, { count: 0 });
+            }
+
             onSnapshot(likesDocRef, (docSnap) => {
                 const likeCountSpan = document.getElementById('like-count');
                 if (likeCountSpan) {
-                    const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
-                    likeCountSpan.textContent = likesData.count;
+                    const data = docSnap.exists() ? docSnap.data() : { count: 0 };
+                    likeCountSpan.textContent = data.count;
                 }
             });
             
@@ -414,6 +563,14 @@
             postIds.forEach(postId => {
                 // Likes des publications
                 const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
+                
+                // Crée le document du compteur si nécessaire
+                getDoc(postLikesDocRef).then(docSnap => {
+                    if (!docSnap.exists()) {
+                        setDoc(postLikesDocRef, { count: 0 });
+                    }
+                });
+
                 onSnapshot(postLikesDocRef, (docSnap) => {
                     const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
                     if (postLikeCountSpan) {
