@@ -34,9 +34,6 @@
             padding: 2rem;
             color: var(--color-text);
         }
-        .profile-header {
-            text-align: center;
-        }
         .profile-image {
             width: 150px;
             height: 150px;
@@ -340,15 +337,15 @@
     import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-    // REMPLACEZ CE BLOC DE CODE AVEC VOTRE PROPRE CONFIGURATION FIREBASE
+    // REMPLACEZ CE BLOC DE CODE ENTIER AVEC VOTRE PROPRE CONFIGURATION FIREBASE
     const firebaseConfig = {
-        apiKey: "VOTRE_API_KEY",
-        authDomain: "VOTRE_AUTH_DOMAIN",
-        projectId: "VOTRE_PROJECT_ID",
-        storageBucket: "VOTRE_STORAGE_BUCKET",
-        messagingSenderId: "VOTRE_MESSAGING_SENDER_ID",
-        appId: "VOTRE_APP_ID",
-        measurementId: "VOTRE_MEASUREMENT_ID"
+      apiKey: "AIzaSyB9DFVLDX8Bg6yV83euludDBXNBaqcfod8",
+      authDomain: "rs-ezio.firebaseapp.com",
+      projectId: "rs-ezio",
+      storageBucket: "rs-ezio.firebasestorage.app",
+      messagingSenderId: "217869367805",
+      appId: "1:217869367805:web:778c0b523c311ed0990194",
+      measurementId: "G-LYHPHBWQZ6"
     };
 
     const appId = firebaseConfig.appId;
