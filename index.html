@@ -334,7 +334,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment, deleteDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
     // VOTRE CONFIGURATION FIREBASE PERSONNELLE
@@ -391,17 +391,23 @@
 
             likeButton.addEventListener('click', async () => {
                 const likedDoc = await getDoc(userLikedRef);
-                if (likedDoc.exists()) {
-                    likeButton.textContent = 'Déjà aimé !';
-                    return;
+                try {
+                    if (likedDoc.exists()) {
+                        await deleteDoc(userLikedRef);
+                        await updateDoc(likesDocRef, { count: increment(-1) });
+                        likeButton.textContent = 'J\'aime';
+                        likeButton.classList.remove('bg-pink-500', 'hover:bg-pink-600');
+                        likeButton.classList.add('bg-gray-300', 'hover:bg-gray-400');
+                    } else {
+                        await setDoc(userLikedRef, { likedAt: serverTimestamp() });
+                        await updateDoc(likesDocRef, { count: increment(1) });
+                        likeButton.textContent = 'Aimé ! ❤️';
+                        likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                        likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                    }
+                } catch (e) {
+                    console.error("Erreur de mise à jour du like du profil : ", e);
                 }
-                
-                await setDoc(userLikedRef, { likedAt: serverTimestamp() });
-                await updateDoc(likesDocRef, { count: increment(1) });
-                
-                likeButton.textContent = 'Aimé ! ❤️';
-                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
             });
 
             // Fonctions pour les publications
@@ -463,17 +469,23 @@
                     const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
                     
                     const likedDoc = await getDoc(postUserLikedRef);
-                    if (likedDoc.exists()) {
-                        postLikeButton.textContent = 'Déjà aimé !';
-                        return;
+                    try {
+                        if (likedDoc.exists()) {
+                            await deleteDoc(postUserLikedRef);
+                            await updateDoc(postLikesDocRef, { count: increment(-1) });
+                            postLikeButton.textContent = 'J\'aime';
+                            postLikeButton.classList.remove('bg-pink-500', 'hover:bg-pink-600');
+                            postLikeButton.classList.add('bg-gray-300', 'hover:bg-gray-400');
+                        } else {
+                            await setDoc(postUserLikedRef, { likedAt: serverTimestamp() });
+                            await updateDoc(postLikesDocRef, { count: increment(1) });
+                            postLikeButton.textContent = 'Aimé ! ❤️';
+                            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+                            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
+                        }
+                    } catch (e) {
+                        console.error("Erreur de mise à jour du like de la publication : ", e);
                     }
-                    
-                    await setDoc(postUserLikedRef, { likedAt: serverTimestamp() });
-                    await updateDoc(postLikesDocRef, { count: increment(1) });
-                    
-                    postLikeButton.textContent = 'Aimé ! ❤️';
-                    postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                    postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
                 };
 
                 // Fonction pour gérer les commentaires
