@@ -41,6 +41,15 @@
             color: var(--color-red-accent);
             font-weight: 700;
         }
+        
+        h3 {
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: var(--color-dark-text);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 5px;
+        }
 
         /* --- En-tête du Profil --- */
         .profile-header {
@@ -53,7 +62,7 @@
 
         .cover-photo {
             height: 250px;
-            background: url('https://via.placeholder.com/1000x250/6e5b4a/ffffff?text=Vue+de+Monteriggioni') no-repeat center center; /* Remplacez par une image de Monteriggioni */
+            background: url('https://via.placeholder.com/1000x250/6e5b4a/ffffff?text=Vue+de+Monteriggioni') no-repeat center center;
             background-size: cover;
             border-radius: 8px 8px 0 0;
         }
@@ -84,6 +93,14 @@
             font-style: italic;
             margin: 0;
             color: var(--color-dark-text);
+            font-size: 1.1em;
+        }
+        
+        .profile-name .bio-translation {
+            font-style: normal;
+            margin: 5px 0 0 0;
+            color: var(--color-interactive);
+            font-size: 0.85em;
         }
 
         /* --- Contenu Principal (deux colonnes) --- */
@@ -129,6 +146,11 @@
 
         .details-list strong {
             color: var(--color-red-accent);
+        }
+
+        #competences-list li {
+            margin-bottom: 5px;
+            padding-left: 10px;
         }
 
         /* --- Section Amis --- */
@@ -193,6 +215,10 @@
             font-size: 0.8em;
             color: #777;
         }
+        
+        .post-location {
+            font-weight: bold;
+        }
 
         .post-content p {
             margin-top: 0;
@@ -252,11 +278,22 @@
         
         .comment {
             font-size: 0.9em;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .comment strong {
             color: var(--color-red-accent);
+        }
+        
+        .translate-comment-btn {
+             background: none;
+             border: none;
+             font-size: 0.8em;
+             color: var(--color-interactive);
+             cursor: pointer;
+             text-decoration: underline;
+             padding-left: 5px;
+             font-style: italic;
         }
 
         /* --- Champ de commentaire caché --- */
@@ -305,7 +342,8 @@
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" alt="Portrait de Ezio Auditore" class="profile-pic">
                 <div class="profile-name">
                     <h1>Ezio Auditore da Firenze</h1>
-                    <p class="bio">Noble Florentin, Assassin et Mentor de l'Ordre.</p>
+                    <p class="bio">"Nobile Fiorentino, Assassino e Mentore dell'Ordine."</p>
+                    <p class="bio-translation">(Noble Florentin, Assassin et Mentor de l'Ordre.)</p>
                 </div>
             </div>
         </header>
@@ -325,13 +363,18 @@
                 </div>
                 <div class="card">
                     <h2>Compétences & Intérêts</h2>
-                    <ul class="details-list">
-                        <li>Maîtrise de la Lame Secrète</li>
-                        <li>Alpinisme Urbain (Freerunning)</li>
-                        <li>Gestion des Finances</li>
-                        <li>Collectionneur d'art et de savoir</li>
-                        <li>Architecture et Ingénierie</li>
-                        <li>Langues : Toscan, Vénitien, Latin</li>
+                    <ul id="competences-list" class="details-list">
+                        <h3>Combat</h3>
+                        <li>🗡️ Maîtrise des lames (épée, dague, lame secrète)</li>
+                        <li>👊 Combat à mains nues</li>
+                        <h3>Aptitudes</h3>
+                        <li>🦅 Vision d'aigle</li>
+                        <li>🧗 Parkour & Alpinisme urbain</li>
+                        <li>🤫 Discrétion & Infiltration</li>
+                        <h3>Savoirs</h3>
+                        <li>💰 Gestion & Finance</li>
+                        <li>🏛️ Architecture</li>
+                        <li>📜 Histoire & Cryptographie</li>
                     </ul>
                 </div>
             </aside>
@@ -376,7 +419,7 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
                         <div>
                             <div class="post-author-name">Ezio Auditore</div>
-                            <div class="post-date">Décembre 1512</div>
+                            <div class="post-date">15 Décembre 1512 à 18:45 <span class="post-location">– en Toscane, Italie</span></div>
                         </div>
                     </div>
                     <div class="post-content">
@@ -405,7 +448,7 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
                         <div>
                             <div class="post-author-name">Ezio Auditore</div>
-                            <div class="post-date">Août 1503</div>
+                            <div class="post-date">10 Août 1503 à 21:10 <span class="post-location">– à Rome, Italie</span></div>
                         </div>
                     </div>
                     <div class="post-content">
@@ -419,10 +462,6 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
-                    <div class="comment-box">
-                        <textarea placeholder="Écrivez un commentaire..."></textarea>
-                        <button>Publier</button>
-                    </div>
                      <div class="post-comments">
                         <div class="comment"><strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !</div>
                         <div class="comment"><strong>Bartolomeo d'Alviano:</strong> BIANCA EST INTRÉPIDE ! ET MON ÉPÉE EST À TON SERVICE, EZIO !</div>
@@ -434,7 +473,7 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
                         <div>
                             <div class="post-author-name">Ezio Auditore</div>
-                            <div class="post-date">Janvier 1500</div>
+                            <div class="post-date">3 Janvier 1500 à 02:30 <span class="post-location">– à Rome, Italie</span></div>
                         </div>
                     </div>
                     <div class="post-content">
@@ -448,12 +487,12 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
-                    <div class="comment-box">
-                        <textarea placeholder="Écrivez un commentaire..."></textarea>
-                        <button>Publier</button>
-                    </div>
                      <div class="post-comments">
-                        <div class="comment"><strong>La Volpe:</strong> Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</div>
+                        <div class="comment">
+                            <strong>La Volpe:</strong>
+                            <span data-original-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo." data-translation-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons.">I miei ladri sono a tua disposizione a Roma. Lo troveremo.</span>
+                            <button class="translate-comment-btn">Traduire</button>
+                        </div>
                         <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
                     </div>
                 </div>
@@ -463,13 +502,13 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
                         <div>
                             <div class="post-author-name">Ezio Auditore</div>
-                            <div class="post-date">Novembre 1488</div>
+                            <div class="post-date">28 Février 1488 à 23:50 <span class="post-location">– à Venise, Italie</span></div>
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Roma, una città meravigliosa... ma così corrotta. Il Borgia ha avvelenato la sua bellezza. Ho trovato rifugio sull'Isola Tiberina. Qui, la Confraternita può ricominciare a respirare. Il lavoro è arduo, ma la fede ci guida."
-                           data-translation-fr="Rome, une ville magnifique... mais si corrompue. Les Borgia ont empoisonné sa beauté. J'ai trouvé refuge sur l'Île Tibérine. Ici, la Confrérie peut recommencer à respirer. Le travail est ardu, mais la foi nous guide.">
-                           Roma, una città meravigliosa... ma così corrotta. Il Borgia ha avvelenato la sua bellezza. Ho trovato rifugio sull'Isola Tiberina. Qui, la Confraternita può ricominciare a respirare. Il lavoro è arduo, ma la fede ci guida.
+                        <p data-original-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare."
+                           data-translation-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.">
+                           Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.
                         </p>
                     </div>
                     <button class="translate-btn">Traduire</button>
@@ -477,42 +516,13 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
-                    <div class="comment-box">
-                        <textarea placeholder="Écrivez un commentaire..."></textarea>
-                        <button>Publier</button>
-                    </div>
-                    <div class="post-comments">
-                        <div class="comment"><strong>Niccolò Machiavelli:</strong> Sii prudente, Mentore. La città ha più occhi di quanto sembri. Ma la resistenza cresce.</div>
-                        <div class="comment"><strong>Claudia Auditore:</strong> Fais attention à toi, Ezio. Nous reconstruirons.</div>
-                    </div>
-                </div>
-
-                <div class="post">
-                    <div class="post-header">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
-                        <div>
-                            <div class="post-author-name">Ezio Auditore</div>
-                            <div class="post-date">Mars 1488</div>
+                     <div class="post-comments">
+                        <div class="comment"><strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !</div>
+                        <div class="comment">
+                            <strong>Niccolò Machiavelli:</strong>
+                            <span data-original-it="Un approccio audace, ma efficace. Ben fatto." data-translation-fr="Une approche audacieuse, mais efficace. Bien joué.">Un approccio audace, ma efficace. Ben fatto.</span>
+                            <button class="translate-comment-btn">Traduire</button>
                         </div>
-                    </div>
-                    <div class="post-content">
-                        <p data-original-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo e i loro complici Templari. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare."
-                           data-translation-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo et leurs complices Templiers. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.">
-                           Venezia, città di maschere e segreti. Ho affrontato i Barbarigo e i loro complici Templari. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.
-                        </p>
-                    </div>
-                    <button class="translate-btn">Traduire</button>
-                    <div class="post-actions">
-                        <button class="action-btn like-btn">❤️ J'aime</button>
-                        <button class="action-btn comment-btn">💬 Commenter</button>
-                    </div>
-                    <div class="comment-box">
-                        <textarea placeholder="Écrivez un commentaire..."></textarea>
-                        <button>Publier</button>
-                    </div>
-                    <div class="post-comments">
-                        <div class="comment"><strong>La Volpe:</strong> Bene fatto, Ezio! I miei uomini ti hanno visto come un'ombra in mezzo alla folla.</div>
-                        <div class="comment"><strong>Bartolomeo d'Alviano:</strong> Peccato che tu non sia rimasto per le taverne dopo la festa! AVANTI !</div>
                     </div>
                 </div>
                 
@@ -552,7 +562,7 @@
                 });
             });
 
-            // --- GESTION DES BOUTONS "TRADUIRE" ---
+            // --- GESTION DES BOUTONS "TRADUIRE" POUR LES POSTS ---
             const translateButtons = document.querySelectorAll('.translate-btn');
 
             translateButtons.forEach(button => {
@@ -566,6 +576,25 @@
                         this.textContent = 'Voir l\'original';
                     } else {
                         postContentP.innerHTML = originalText;
+                        this.textContent = 'Traduire';
+                    }
+                });
+            });
+
+            // --- GESTION DES BOUTONS "TRADUIRE" POUR LES COMMENTAIRES ---
+            const translateCommentButtons = document.querySelectorAll('.translate-comment-btn');
+
+            translateCommentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentSpan = this.previousElementSibling;
+                    const originalText = commentSpan.dataset.originalIt;
+                    const translatedText = commentSpan.dataset.translationFr;
+
+                    if (this.textContent === 'Traduire') {
+                        commentSpan.textContent = translatedText;
+                        this.textContent = 'Original';
+                    } else {
+                        commentSpan.textContent = originalText;
                         this.textContent = 'Traduire';
                     }
                 });
