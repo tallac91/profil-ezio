@@ -62,7 +62,8 @@
 
         .cover-photo {
             height: 250px;
-            background: url('https://store.ubisoft.com/dw/image/v2/ABBS_PRD/on/demandware.static/-/Sites-masterCatalog/default/dw8974f3a4/images/large/56c4948188a7e300458b46d2-5.jpg?sw=890&sh=501&sm=fit') no-repeat center center;
+            /* MISE À JOUR DE LA PHOTO DE COUVERTURE */
+            background: url('https://www.couverturefb.com/upload/2013/01/22/20130122104907-43d7f6a9.jpg') no-repeat center center;
             background-size: cover;
             border-radius: 8px 8px 0 0;
         }
@@ -84,23 +85,28 @@
             object-fit: cover;
         }
 
+        /* CORRECTION DE LA VISIBILITÉ DU NOM ET BIO */
         .profile-name h1 {
             margin: 0;
             font-size: 2.5em;
+            color: white; /* Texte en blanc pour contraster */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Ombre portée pour la lisibilité */
         }
 
         .profile-name .bio {
             font-style: italic;
             margin: 0;
-            color: var(--color-dark-text);
+            color: white;
             font-size: 1.1em;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
         }
         
         .profile-name .bio-translation {
             font-style: normal;
             margin: 5px 0 0 0;
-            color: var(--color-interactive);
+            color: #dddddd;
             font-size: 0.85em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
         }
 
         /* --- Contenu Principal (deux colonnes) --- */
@@ -659,7 +665,7 @@
                              <div class="friend-name">Paola</div>
                         </div>
                         <div class="friend-item">
-                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqGJ26QeGX6u_c4kUlCV0qhByN8EluM_2VQ&s" alt="Antonio">
+                             <img src="https://static.wikia.nocookie.net/totalwar-ar/images/8/89/Antonio_de_Magianis.jpg/revision/latest?cb=20170623170835" alt="Antonio">
                              <div class="friend-name">Antonio de Magianis</div>
                         </div>
                         <div class="friend-item">
@@ -669,6 +675,39 @@
                     </div>
                 </div>
                 
+                <div id="posts-container">
+                    </div>
+
+            </section>
+        </main>
+    </div>
+    
+    <div id="chat-fab">
+       <svg fill="#f5f0e1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#f5f0e1}</style><path d="M256 0C114.6 0 0 114.6 0 256S114.6 256 256 256 512 399.4 512 256 399.4 0 256 0zM256 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208-93.3 208-208 208zm-80-176c-9.4-4.2-20.1-2.4-27.5 4.9s-9.1 18.2-4.9 27.5l48 106.7c3.2 7.1 10.4 11.2 18.2 11.2s14.9-4.2 18.2-11.2l48-106.7c4.2-9.4 2.4-20.1-4.9-27.5s-18.2-9.1-27.5-4.9L256 198.7l-80 37.3zM256 288c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/></svg>
+    </div>
+
+    <div id="chat-modal" style="display: none;">
+        <div class="chat-window">
+            <div class="chat-header">
+                <h2>Parler à Ezio</h2>
+                <button class="chat-close-btn">&times;</button>
+            </div>
+            <div class="chat-messages">
+                <div class="message ezio">Salute ! Que puis-je faire pour vous ?</div>
+            </div>
+            <form class="chat-input-form">
+                <input type="text" placeholder="Posez votre question..." required>
+                <button type="submit">→</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const postsContainer = document.getElementById('posts-container');
+            if (postsContainer) {
+                postsContainer.innerHTML = `
                 <div class="post">
                     <div class="post-header">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
@@ -1086,7 +1125,7 @@
                     </div>
                     <div class="post-content">
                         <p data-original-fr="Oncle Mario m'apprend les ficelles du métier d'Assassin. Monteriggioni n'est pas seulement une maison, c'est notre forteresse, notre centre d'entraînement. Chaque jour, je m'améliore, pour ma famille, pour notre Credo. La Villa Auditore revivra."
-                           data-translation-it="Zio Mario mi sta insegnando i rudimenti del mestiere di Assassino. Monteriggioni non è solo una casa, è la nostra fortezza, il nostro campo di addestramento. Ogni giorno miglioro, per la mia famiglia, per il nostro Credo. La Villa Auditore rivivrà.">
+                           data-translation-it="Zio Mario mi sta insegnando i rudimenti del mestiere di Assassino. Monteriggioni non è solo una casa, è la nostra fortezza, il nostro campo di addestramento. Ogni giorno miglioro, per la mia famiglia, per il nostro Credo. Villa Auditore rivivrà.">
                            Oncle Mario m'apprend les ficelles du métier d'Assassin. Monteriggioni n'est pas seulement une maison, c'est notre forteresse, notre centre d'entraînement. Chaque jour, je m'améliore, pour ma famille, pour notre Credo. La Villa Auditore revivra.
                         </p>
                     </div>
