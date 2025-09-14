@@ -300,6 +300,7 @@
             border-radius: 50%;
             margin-right: 10px;
             object-fit: cover;
+            flex-shrink: 0;
         }
         
         .comment strong {
@@ -455,6 +456,10 @@
                              <img src="https://assets.mycast.io/characters/sofia-sartor-281021-normal.jpg?1569491821" alt="Sofia">
                              <div class="friend-name">Sofia Sartor</div>
                         </div>
+                         <div class="friend-item">
+                             <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia">
+                             <div class="friend-name">Claudia Auditore</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -551,7 +556,7 @@
                         </div>
                         <div class="comment-thread">
                             <div class="comment">
-                                <img src="https://via.placeholder.com/35/d4c5a5/3d2b1f?text=CA" alt="Claudia Auditore" class="comment-author-pic">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
                                 <div class="comment-body">
                                     <strong>Claudia Auditore:</strong> Un autre voyage, mon frère ? Puisse la fortune t'assister. Pense à nous.
                                 </div>
@@ -590,7 +595,7 @@
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
-                                <img src="https://via.placeholder.com/35/d4c5a5/3d2b1f?text=CA" alt="Claudia Auditore" class="comment-author-pic">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
                                 <div class="comment-body">
                                     <strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !
                                 </div>
@@ -808,7 +813,7 @@
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
-                                <img src="https://via.placeholder.com/35/d4c5a5/3d2b1f?text=CA" alt="Claudia Auditore" class="comment-author-pic">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
                                 <div class="comment-body">
                                     <strong>Claudia Auditore:</strong> Je m'occupe des finances, frère. Pendant que tu t'entraînes, je fais en sorte que nous ayons les moyens de nos ambitions.
                                 </div>
@@ -885,16 +890,20 @@
 
             translateCommentButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const commentSpan = this.closest('.comment-body span, div span');
-                    const originalText = commentSpan.dataset.originalFr;
-                    const translatedText = commentSpan.dataset.translationIt;
+                    // Correction du sélecteur pour cibler correctement le span
+                    const commentSpan = this.previousElementSibling;
+                    
+                    if (commentSpan && commentSpan.tagName === 'SPAN') {
+                        const originalText = commentSpan.dataset.originalFr;
+                        const translatedText = commentSpan.dataset.translationIt;
 
-                    if (this.textContent === 'Traduire') {
-                        commentSpan.textContent = translatedText;
-                        this.textContent = 'Français';
-                    } else {
-                        commentSpan.textContent = originalText;
-                        this.textContent = 'Traduire';
+                        if (this.textContent === 'Traduire') {
+                            commentSpan.textContent = translatedText;
+                            this.textContent = 'Français';
+                        } else {
+                            commentSpan.textContent = originalText;
+                            this.textContent = 'Traduire';
+                        }
                     }
                 });
             });
