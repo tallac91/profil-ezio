@@ -86,12 +86,6 @@
             color: var(--color-dark-text);
         }
 
-        .profile-name .creed {
-            font-style: italic;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
         /* --- Contenu Principal (deux colonnes) --- */
         .main-content {
             display: flex;
@@ -312,7 +306,6 @@
                 <div class="profile-name">
                     <h1>Ezio Auditore da Firenze</h1>
                     <p class="bio">Noble Florentin, Assassin et Mentor de l'Ordre.</p>
-                    <p class="creed">"Laa Shay'a Waqi'un Mutlaq, Bal Kullun Mumkin."</p>
                 </div>
             </div>
         </header>
@@ -338,6 +331,7 @@
                         <li>Gestion des Finances</li>
                         <li>Collectionneur d'art et de savoir</li>
                         <li>Architecture et Ingénierie</li>
+                        <li>Langues : Toscan, Vénitien, Latin</li>
                     </ul>
                 </div>
             </aside>
@@ -376,7 +370,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="post">
                     <div class="post-header">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
@@ -463,6 +457,64 @@
                         <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
                     </div>
                 </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">Novembre 1488</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-it="Roma, una città meravigliosa... ma così corrotta. Il Borgia ha avvelenato la sua bellezza. Ho trovato rifugio sull'Isola Tiberina. Qui, la Confraternita può ricominciare a respirare. Il lavoro è arduo, ma la fede ci guida."
+                           data-translation-fr="Rome, une ville magnifique... mais si corrompue. Les Borgia ont empoisonné sa beauté. J'ai trouvé refuge sur l'Île Tibérine. Ici, la Confrérie peut recommencer à respirer. Le travail est ardu, mais la foi nous guide.">
+                           Roma, una città meravigliosa... ma così corrotta. Il Borgia ha avvelenato la sua bellezza. Ho trovato rifugio sull'Isola Tiberina. Qui, la Confraternita può ricominciare a respirare. Il lavoro è arduo, ma la fede ci guida.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduire</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
+                    <div class="post-comments">
+                        <div class="comment"><strong>Niccolò Machiavelli:</strong> Sii prudente, Mentore. La città ha più occhi di quanto sembri. Ma la resistenza cresce.</div>
+                        <div class="comment"><strong>Claudia Auditore:</strong> Fais attention à toi, Ezio. Nous reconstruirons.</div>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">Mars 1488</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo e i loro complici Templari. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare."
+                           data-translation-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo et leurs complices Templiers. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.">
+                           Venezia, città di maschere e segreti. Ho affrontato i Barbarigo e i loro complici Templari. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduire</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
+                    <div class="post-comments">
+                        <div class="comment"><strong>La Volpe:</strong> Bene fatto, Ezio! I miei uomini ti hanno visto come un'ombra in mezzo alla folla.</div>
+                        <div class="comment"><strong>Bartolomeo d'Alviano:</strong> Peccato che tu non sia rimasto per le taverne dopo la festa! AVANTI !</div>
+                    </div>
+                </div>
                 
             </section>
         </main>
@@ -505,15 +557,15 @@
 
             translateButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const postContent = this.closest('.post').querySelector('.post-content p');
-                    const originalText = postContent.dataset.originalIt;
-                    const translatedText = postContent.dataset.translationFr;
+                    const postContentP = this.closest('.post').querySelector('.post-content p');
+                    const originalText = postContentP.dataset.originalIt;
+                    const translatedText = postContentP.dataset.translationFr;
 
                     if (this.textContent === 'Traduire') {
-                        postContent.innerHTML = translatedText;
+                        postContentP.innerHTML = translatedText;
                         this.textContent = 'Voir l\'original';
                     } else {
-                        postContent.innerHTML = originalText;
+                        postContentP.innerHTML = originalText;
                         this.textContent = 'Traduire';
                     }
                 });
