@@ -153,7 +153,7 @@
             padding-left: 10px;
         }
 
-        /* --- NOUVEAU : Section Album Photos --- */
+        /* --- Section Album Photos --- */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -663,46 +663,12 @@
                              <div class="friend-name">Antonio de Magianis</div>
                         </div>
                         <div class="friend-item">
-                             <img src="https://static.wikia.nocookie.net/assassinscreed/images/c/c8/ACII-Teodora.png/revision/latest" alt="Teodora">
+                             <img src="https://i.pinimg.com/originals/3d/8e/3c/3d8e3c09939a3118d3d9229f34a02c52.jpg" alt="Teodora">
                              <div class="friend-name">Teodora Contanto</div>
                         </div>
                     </div>
                 </div>
                 
-                <div id="posts-container">
-                    </div>
-
-            </section>
-        </main>
-    </div>
-    
-    <div id="chat-fab">
-       <svg fill="#f5f0e1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#f5f0e1}</style><path d="M256 0C114.6 0 0 114.6 0 256S114.6 256 256 256 512 399.4 512 256 399.4 0 256 0zM256 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208-93.3 208-208 208zm-80-176c-9.4-4.2-20.1-2.4-27.5 4.9s-9.1 18.2-4.9 27.5l48 106.7c3.2 7.1 10.4 11.2 18.2 11.2s14.9-4.2 18.2-11.2l48-106.7c4.2-9.4 2.4-20.1-4.9-27.5s-18.2-9.1-27.5-4.9L256 198.7l-80 37.3zM256 288c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/></svg>
-    </div>
-
-    <div id="chat-modal" style="display: none;">
-        <div class="chat-window">
-            <div class="chat-header">
-                <h2>Parler à Ezio</h2>
-                <button class="chat-close-btn">&times;</button>
-            </div>
-            <div class="chat-messages">
-                <div class="message ezio">Salute ! Que puis-je faire pour vous ?</div>
-            </div>
-            <form class="chat-input-form">
-                <input type="text" placeholder="Posez votre question..." required>
-                <button type="submit">→</button>
-            </form>
-        </div>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // On injecte le HTML des publications pour éviter un fichier trop lourd
-            const postsContainer = document.getElementById('posts-container');
-            postsContainer.innerHTML = `
                 <div class="post">
                     <div class="post-header">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
@@ -769,35 +735,559 @@
                         </div>
                     </div>
                 </div>
-                `;
 
-            // Initialiser les écouteurs d'événements
-            initializeEventListeners();
-        });
+                 <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">12 Avril 1511 à 16:10 <span class="post-location">– à Masyaf, Syrie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Je suis arrivé à Masyaf, l'ancienne forteresse d'Altaïr. Je pensais trouver des réponses, mais je n'ai trouvé que des Templiers. Ils ont profané ce lieu sacré. La bibliothèque d'Altaïr est scellée... Les clés sont à Constantinople. Mon voyage n'est pas encore terminé."
+                           data-translation-it="Sono arrivato a Masyaf, la vecchia fortezza di Altaïr. Pensavo di trovare risposte, ma ho trovato solo Templari. Hanno profanato questo luogo sacro. La biblioteca di Altaïr è sigillata... Le chiavi sono a Costantinopoli. Il mio viaggio non è ancora finito.">
+                           Je suis arrivé à Masyaf, l'ancienne forteresse d'Altaïr. Je pensais trouver des réponses, mais je n'ai trouvé que des Templiers. Ils ont profané ce lieu sacré. La bibliothèque d'Altaïr est scellée... Les clés sont à Constantinople. Mon voyage n'est pas encore terminé.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://assets.mycast.io/characters/sofia-sartor-281021-normal.jpg?1569491821" alt="Sofia Sartor" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Sofia Sartor:</strong> Fais attention, Ezio. Les histoires parlent de nombreux dangers dans cette ville. Reviens sain et sauf.
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Je le ferai. La promesse de la connaissance est trop grande pour être ignorée. Mais je reviendrai." data-translation-it="Lo farò. La promessa di conoscenza è troppo grande per essere ignorata. Ma tornerò.">Je le ferai. La promesse de la connaissance est trop grande pour être ignorée. Mais je reviendrai.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Un autre voyage, mon frère ? Puisse la fortune t'assister. Pense à nous.
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Toujours, ma sœur. Je le fais pour l'avenir de notre famille et de l'Ordre." data-translation-it="Sempre, sorella mia. Lo faccio per il futuro della nostra famiglia e dell'Ordine.">Toujours, ma sœur. Je le fais pour l'avenir de notre famille et de l'Ordre.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">10 Août 1503 à 21:10 <span class="post-location">– à Rome, Italie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Cesare est peut-être tombé, mais l'influence des Borgia persiste. Nous avons libéré Rome de leur tyrannie, quartier par quartier. La Confrérie renaît de ses cendres, plus forte que jamais. Je suis fier de nos nouvelles recrues. Avanti !"
+                           data-translation-it="Cesare sarà anche caduto, ma l'influenza dei Borgia persiste. Abbiamo liberato Roma dalla loro tirannia, rione dopo rione. La Confraternita rinasce dalle sue ceneri, più forte che mai. Sono fiero delle nostre nuove reclutes. Avanti!">
+                           Cesare est peut-être tombé, mais l'influence des Borgia persiste. Nous avons libéré Rome de leur tyrannie, quartier par quartier. La Confrérie renaît de ses cendres, plus forte que jamais. Je suis fier de nos nouvelles recrues. Avanti !
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Pour eux, toujours. Nous honorons leur mémoire par nos actes." data-translation-it="Per loro, sempre. Onoriamo la loro memoria con le nostre azioni.">Pour eux, toujours. Nous honorons leur mémoire par nos actes.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/aef3ad8/profile_images/f74fe76c1432457b84251d64e2489769.png" alt="Bartolomeo d'Alviano" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Bartolomeo d'Alviano:</strong> BIANCA EST INTRÉPIDE ! ET MON ÉPÉE EST À TON SERVICE, EZIO !
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        function initializeEventListeners() {
-            // ... (le reste du script JS est identique à la version précédente) ...
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">3 Janvier 1500 à 02:30 <span class="post-location">– à Rome, Italie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse."
+                           data-translation-it="Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa.">
+                           Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://assets.mycast.io/actor_images/actor-la-volpe-330854_large.jpg?1640326745" alt="La Volpe" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>La Volpe:</strong>
+                                    <span data-original-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons." data-translation-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo.">Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="J'apprécie ton aide, Volpe. Agissez dans l'ombre." data-translation-it="Apprezzo il tuo aiuto, Volpe. Muovetevi nell'ombra.">J'apprécie ton aide, Volpe. Agissez dans l'ombre.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://www.meisterdrucke.fr/kunstwerke/400px/English_School_-_Leonardo_da_Vinci_-_(MeisterDrucke-60848).jpg" alt="Leonardo da Vinci" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Leonardo, mon ami... Je les récupérerai. Je te le promets." data-translation-it="Leonardo, amico mio... Le recupererò. Te lo prometto.">Leonardo, mon ami... Je les récupérerai. Je te le promets.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            // CORRECTIF POUR LA TRADUCTION DES POSTS
-            const translateButtons = document.querySelectorAll('.translate-btn');
-            translateButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const postContentP = this.closest('.post').querySelector('.post-content p');
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">7 Février 1497 à 19:20 <span class="post-location">– à Florence, Italie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Florence est tombée dans la folie de Savonarole. Ils brûlent des livres et des œuvres d'art... la connaissance elle-même. Ce moine prêche l'humilité mais ne désire que le pouvoir. Je ne peux pas rester sans rien faire pendant que ma ville sombre dans les ténèbres."
+                           data-translation-it="Firenze è caduta nella follia di Savonarola. Bruciano libri e arte... la conoscenza stessa. Questo frate predica l'umiltà ma brama il potere. Non posso restare a guardare mentre la mia città sprofonda nell'oscurità.">
+                           Florence est tombée dans la folie de Savonarole. Ils brûlent des livres et des œuvres d'art... la connaissance elle-même. Ce moine prêche l'humilité mais ne désire que le pouvoir. Je ne peux pas rester sans rien faire pendant que ma ville sombre dans les ténèbres.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Santi_di_Tito_-_Niccolo_Machiavelli%27s_portrait_headcrop.jpg" alt="Niccolò Machiavelli" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Niccolò Machiavelli:</strong>
+                                    <span data-original-fr="Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force." data-translation-it="Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza.">Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Tu as raison. La lame seule ne suffit pas. Nous devons frapper son influence." data-translation-it="Hai ragione. La lama da sola non basta. Dobbiamo colpire la sua influenza.">Tu as raison. La lame seule ne suffit pas. Nous devons frapper son influence.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://assets.mycast.io/actor_images/actor-la-volpe-330854_large.jpg?1640326745" alt="La Volpe" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>La Volpe:</strong> Mes voleurs te tiennent informé de ses déplacements. Fais attention, il a de nombreux partisans fanatiques.
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Leur foi aveugle les rend prévisibles. Merci pour les informations." data-translation-it="La loro fede cieca li rende prevedibili. Grazie per le informazioni.">Leur foi aveugle les rend prévisibles. Merci pour les informations.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">28 Février 1488 à 23:50 <span class="post-location">– à Venise, Italie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher."
+                           data-translation-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.">
+                           Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://www.meisterdrucke.fr/kunstwerke/400px/English_School_-_Leonardo_da_Vinci_-_(MeisterDrucke-60848).jpg" alt="Leonardo da Vinci" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Elle a fonctionné à merveille. Tu es un génie, mon ami." data-translation-it="Ha funzionato a meraviglia. Sei un genio, amico mio.">Elle a fonctionné à merveille. Tu es un génie, mon ami.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Santi_di_Tito_-_Niccolo_Machiavelli%27s_portrait_headcrop.jpg" alt="Niccolò Machiavelli" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Niccolò Machiavelli:</strong>
+                                    <span data-original-fr="Une approche audacieuse, mais efficace. Bien joué." data-translation-it="Un approccio audace, ma efficace. Ben fatto.">Une approche audacieuse, mais efficace. Bien joué.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Parfois, l'audace est nécessaire. Merci." data-translation-it="A volte l'audacia è necessaria. Grazie.">Parfois, l'audace est nécessaire. Merci.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">1er Mai 1481 à 14:00 <span class="post-location">– à Monteriggioni, Italie</span></div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p data-original-fr="Oncle Mario m'apprend les ficelles du métier d'Assassin. Monteriggioni n'est pas seulement une maison, c'est notre forteresse, notre centre d'entraînement. Chaque jour, je m'améliore, pour ma famille, pour notre Credo. La Villa Auditore revivra."
+                           data-translation-it="Zio Mario mi sta insegnando i rudimenti del mestiere di Assassino. Monteriggioni non è solo una casa, è la nostra fortezza, il nostro campo di addestramento. Ogni giorno miglioro, per la mia famiglia, per il nostro Credo. Villa Auditore rivivrà.">
+                           Oncle Mario m'apprend les ficelles du métier d'Assassin. Monteriggioni n'est pas seulement une maison, c'est notre forteresse, notre centre d'entraînement. Chaque jour, je m'améliore, pour ma famille, pour notre Credo. La Villa Auditore revivra.
+                        </p>
+                    </div>
+                    <button class="translate-btn">Traduction originale</button>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <img src="https://static1.personalitydatabase.net/2/pdb-images-prod/2202938f/profile_images/dfaf0df3a5ba4cfe8e6c23648a72e4a5.png" alt="Claudia Auditore" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Je m'occupe des finances, frère. Pendant que tu t'entraînes, je fais en sorte que nous ayons les moyens de nos ambitions.
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                        <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div class="comment-body">
+                                    <strong>Ezio Auditore:</strong>
+                                    <span data-original-fr="Ta tête pour les chiffres est aussi affûtée que ma lame, ma sœur. Merci." data-translation-it="La tua testa per i numeri è affilata quanto la mia lama, sorella mia. Grazie.">Ta tête pour les chiffres est aussi affûtée que ma lame, ma sœur. Merci.</span>
+                                    <button class="translate-comment-btn">Traduction originale</button>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="chat-fab">
+       <svg fill="#f5f0e1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#f5f0e1}</style><path d="M256 0C114.6 0 0 114.6 0 256S114.6 256 256 256 512 399.4 512 256 399.4 0 256 0zM256 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208-93.3 208-208 208zm-80-176c-9.4-4.2-20.1-2.4-27.5 4.9s-9.1 18.2-4.9 27.5l48 106.7c3.2 7.1 10.4 11.2 18.2 11.2s14.9-4.2 18.2-11.2l48-106.7c4.2-9.4 2.4-20.1-4.9-27.5s-18.2-9.1-27.5-4.9L256 198.7l-80 37.3zM256 288c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/></svg>
+    </div>
+
+    <div id="chat-modal" style="display: none;">
+        <div class="chat-window">
+            <div class="chat-header">
+                <h2>Parler à Ezio</h2>
+                <button class="chat-close-btn">&times;</button>
+            </div>
+            <div class="chat-messages">
+                <div class="message ezio">Salute ! Que puis-je faire pour vous ?</div>
+            </div>
+            <form class="chat-input-form">
+                <input type="text" placeholder="Posez votre question..." required>
+                <button type="submit">→</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- GESTION DES BOUTONS "J'AIME" ---
+            document.body.addEventListener('click', function(e) {
+                if (e.target.matches('.like-btn')) {
+                    e.target.classList.toggle('liked');
+                    if (e.target.classList.contains('liked')) {
+                        e.target.innerHTML = '❤️ Aimé';
+                    } else {
+                        e.target.innerHTML = '❤️ J\'aime';
+                    }
+                }
+                if (e.target.matches('.comment-like-btn')) {
+                    e.target.classList.toggle('liked');
+                    if (e.target.classList.contains('liked')) {
+                        e.target.textContent = '👍 Aimé';
+                    } else {
+                        e.target.textContent = '👍 Aimer';
+                    }
+                }
+            });
+
+            // --- GESTION DES BOUTONS "COMMENTER" ---
+            document.body.addEventListener('click', function(e) {
+                if (e.target.matches('.comment-btn')) {
+                    const post = e.target.closest('.post');
+                    let commentBox = post.querySelector('.comment-box');
+                    if (!commentBox) {
+                        const newBox = document.createElement('div');
+                        newBox.className = 'comment-box';
+                        newBox.innerHTML = `<textarea placeholder="Écrivez un commentaire..."></textarea><button>Publier</button>`;
+                        post.querySelector('.post-comments').appendChild(newBox);
+                        commentBox = newBox;
+                    }
+                    commentBox.style.display = (commentBox.style.display === 'block') ? 'none' : 'block';
+                }
+            });
+
+            // --- GESTION DES BOUTONS "TRADUIRE" ---
+            document.body.addEventListener('click', function(e) {
+                if (e.target.matches('.translate-btn')) {
+                    const postContentP = e.target.closest('.post').querySelector('.post-content p');
                     const originalText = postContentP.dataset.originalFr;
                     const translatedText = postContentP.dataset.translationIt;
 
-                    if (this.textContent === 'Traduction originale') {
+                    if (e.target.textContent === 'Traduction originale') {
                         postContentP.innerHTML = translatedText;
-                        this.textContent = 'Voir en français';
+                        e.target.textContent = 'Voir en français';
                     } else {
                         postContentP.innerHTML = originalText;
-                        this.textContent = 'Traduction originale';
+                        e.target.textContent = 'Traduction originale';
                     }
-                });
+                }
+                if (e.target.matches('.translate-comment-btn')) {
+                    const commentSpan = e.target.previousElementSibling;
+                    if (commentSpan && commentSpan.tagName === 'SPAN') {
+                        const originalText = commentSpan.dataset.originalFr;
+                        const translatedText = commentSpan.dataset.translationIt;
+                        if (e.target.textContent === 'Traduction originale') {
+                            commentSpan.textContent = translatedText;
+                            e.target.textContent = 'Français';
+                        } else {
+                            commentSpan.textContent = originalText;
+                            e.target.textContent = 'Traduction originale';
+                        }
+                    }
+                }
+            });
+            
+            // --- SCRIPT POUR LE CHAT AVEC L'IA ---
+            const chatFab = document.getElementById('chat-fab');
+            const chatModal = document.getElementById('chat-modal');
+            const closeBtn = document.querySelector('.chat-close-btn');
+            const chatForm = document.querySelector('.chat-input-form');
+            const chatMessages = document.querySelector('.chat-messages');
+            
+            const GEMINI_API_KEY = "VOTRE_CLE_API_GEMINI_ICI"; 
+
+            chatFab.addEventListener('click', () => {
+                chatModal.style.display = 'flex';
             });
 
-            // ... (le reste du script JS est identique) ...
-        }
+            closeBtn.addEventListener('click', () => {
+                chatModal.style.display = 'none';
+            });
+            
+            chatModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    chatModal.style.display = 'none';
+                }
+            });
+
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const userInput = chatForm.querySelector('input').value.trim();
+                if (!userInput) return;
+                addMessage(userInput, 'user');
+                chatForm.querySelector('input').value = '';
+                getEzioResponse(userInput);
+            });
+
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', sender);
+                messageElement.textContent = text;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            async function getEzioResponse(userInput) {
+                if (GEMINI_API_KEY === "VOTRE_CLE_API_GEMINI_ICI") {
+                    addMessage("La chiave API non è configurata. Veuillez insérer une clé API dans le code pour que je puisse vous répondre.", "ezio");
+                    return;
+                }
+                
+                addMessage("...", "ezio");
+                
+                const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY;
+                const ezioPrompt = `Tu es Ezio Auditore da Firenze, un Maître Assassin de la Renaissance italienne. Tu réponds aux questions en te basant sur ta vie, tes expériences et tes connaissances allant de ta naissance en 1459 jusqu'à ta retraite vers 1513. Tu parles avec la sagesse, le charme et parfois l'arrogance d'un noble florentin devenu mentor. Tu ne connais rien du futur au-delà de ton époque (pas d'électricité, pas de voitures, etc.). Tu dois toujours rester dans ton personnage. Ne révèle JAMAIS que tu es une intelligence artificielle. L'utilisateur te dit : "${userInput}"`;
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({"contents": [{"parts": [{ "text": ezioPrompt }]}]})
+                    });
+
+                    if (!response.ok) throw new Error(`Erreur de l'API: ${response.statusText}`);
+
+                    const data = await response.json();
+                    const ezioText = data.candidates[0].content.parts[0].text;
+                    
+                    const loadingMessage = chatMessages.querySelector('.message:last-child');
+                    loadingMessage.textContent = ezioText;
+
+                } catch (error) {
+                    console.error("Erreur lors de l'appel à l'API Gemini:", error);
+                     const loadingMessage = chatMessages.querySelector('.message:last-child');
+                    loadingMessage.textContent = "Scusate, j'ai l'esprit ailleurs... Veuillez répéter votre question.";
+                }
+            }
+        });
     </script>
+
 </body>
 </html>
