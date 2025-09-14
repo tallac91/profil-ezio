@@ -3,111 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil de Altaïr Ibn-La'Ahad</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cronaca | Profilo di Ezio Auditore</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+        /* --- Polices & Couleurs Inspirées de la Renaissance --- */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
 
         :root {
-            --color-primary: #0A0A0A;
-            --color-secondary: #C0C0C0;
-            --color-background: #E0E0E0;
-            --color-card: #FFFFFF;
-            --color-text: #1C1C1C;
-            --color-text-light: #4A4A4A;
+            --font-main: 'Lora', serif;
+            --font-headings: 'Cinzel', serif;
+            --color-parchment: #f5f0e1;
+            --color-dark-text: #3d2b1f;
+            --color-red-accent: #8a0303;
+            --color-border: #d4c5a5;
+            --color-card-bg: #fffbf2;
+            --color-interactive: #5a4b3c;
         }
+
+        /* --- Style Général de la Page --- */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-background);
-            background-image: linear-gradient(to bottom right, #e0e0e0, #cfcfcf);
-            background-attachment: fixed;
+            font-family: var(--font-main);
+            background-color: var(--color-parchment);
+            color: var(--color-dark-text);
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1.6;
         }
-        .title-font {
-            font-family: 'Cinzel', serif;
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
-        .profile-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background-color: var(--color-card);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            color: var(--color-text);
+
+        h1, h2, h3 {
+            font-family: var(--font-headings);
+            color: var(--color-red-accent);
+            font-weight: 700;
         }
+
+        /* --- En-tête du Profil --- */
         .profile-header {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .cover-photo {
+            height: 250px;
+            background: url('https://via.placeholder.com/1000x250/6e5b4a/ffffff?text=Vue+de+Monteriggioni') no-repeat center center; /* Remplacez par une image de Monteriggioni */
+            background-size: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            margin-top: -80px;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid var(--color-parchment);
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .profile-name h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .profile-name .bio {
+            font-style: italic;
+            margin: 0;
+            color: var(--color-dark-text);
+        }
+
+        .profile-name .creed {
+            font-style: italic;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        /* --- Contenu Principal (deux colonnes) --- */
+        .main-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-column {
+            flex: 0 0 320px;
+        }
+
+        .right-column {
+            flex: 1;
+        }
+
+        /* --- Cartes de Contenu (Détails, Amis, Posts) --- */
+        .card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* --- Section Détails et Compétences --- */
+        .details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-list li {
+            margin-bottom: 10px;
+        }
+
+        .details-list strong {
+            color: var(--color-red-accent);
+        }
+
+        /* --- NOUVELLE Section Amis --- */
+        .friends-card .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 20px;
+        }
+
+        .friends-card .friend-item {
             text-align: center;
         }
-        .profile-image {
-            width: 150px;
-            height: 150px;
+
+        .friends-card .friend-item img {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 4px solid var(--color-card);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: -75px;
-            position: relative;
-            z-index: 10;
+            border: 3px solid var(--color-border);
+            transition: transform 0.2s;
         }
-        .cover-photo {
+        
+        .friends-card .friend-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .friends-card .friend-item .friend-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        /* --- Section "Memorie" (Le Mur) --- */
+        .post {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-author-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .post-author-name {
+            font-weight: bold;
+            font-family: var(--font-headings);
+        }
+
+        .post-date {
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .post-content p {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        /* --- NOUVEAUX Boutons J'aime/Commenter --- */
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: bold;
+            font-size: 0.9em;
+            color: var(--color-interactive);
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--color-parchment);
+        }
+        
+        .like-btn.liked {
+            color: var(--color-red-accent);
+        }
+
+        .post-comments {
+            margin-top: 15px;
+        }
+        
+        .comment {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .comment strong {
+            color: var(--color-red-accent);
+        }
+
+        /* --- NOUVEAU Champ de commentaire caché --- */
+        .comment-box {
+            display: none; /* Caché par défaut */
+            margin-top: 15px;
+        }
+        
+        .comment-box textarea {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://image.noelshack.com/fichiers/2025/37/7/1757827877-altair-cover.jpg') no-repeat center center;
-            background-size: cover;
-            border-radius: 12px 12px 0 0;
+            box-sizing: border-box;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: var(--font-main);
+            background-color: #fff;
+            min-height: 60px;
+            resize: vertical;
         }
-        .info-card {
-            background-color: #f9fafb;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+
+        .comment-box button {
+            background-color: var(--color-red-accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-headings);
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
         }
-        .post-card {
-            background-color: var(--color-card);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        
+        .comment-box button:hover {
+            opacity: 0.9;
         }
+
     </style>
 </head>
 <body>
 
-<div class="profile-container">
-    <div class="profile-header">
-        <div class="cover-photo"></div>
-        <img class="profile-image mx-auto object-cover" src="https://image.noelshack.com/fichiers/2025/37/7/1757827877-altair-profil.jpg" alt="Photo de profil d'Altaïr Ibn-La'Ahad">
-        <h1 class="text-3xl font-bold mt-4 text-gray-800 title-font">Altaïr Ibn-La'Ahad</h1>
-        <p class="text-gray-500 mt-2">"Rien n'est vrai, tout est permis."</p>
+    <div class="container">
+        <header class="profile-header">
+            <div class="cover-photo"></div>
+            <div class="profile-info">
+                <img src="https://via.placeholder.com/160/8a0303/ffffff?text=E" alt="Portrait de Ezio Auditore" class="profile-pic">
+                <div class="profile-name">
+                    <h1>Ezio Auditore da Firenze</h1>
+                    <p class="bio">Nobile Fiorentino, Assassino e Mentore dell'Ordine.</p>
+                    <p class="creed">"Laa Shay'a Waqi'un Mutlaq, Bal Kullun Mumkin."</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <aside class="left-column">
+                <div class="card">
+                    <h2>Dettagli Personali</h2>
+                    <ul class="details-list">
+                        <li><strong>Nato il:</strong> 24 juin 1459</li>
+                        <li><strong>Origine:</strong> Firenze, Repubblica Fiorentina</li>
+                        <li><strong>Residenza:</strong> Villa Auditore | Isola Tiberina</li>
+                        <li><strong>Professione:</strong> Maître Assassin</li>
+                        <li><strong>Famiglia:</strong> Casa Auditore</li>
+                        <li><strong>Situazione:</strong> Marié à Sofia Sartor</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Abilità & Interessi</h2>
+                    <ul class="details-list">
+                        <li>Maîtrise de la Lame Secrète</li>
+                        <li>Alpinisme Urbain (Freerunning)</li>
+                        <li>Gestion des Finances</li>
+                        <li>Collectionneur d'art et de savoir</li>
+                        <li>Architecture et Ingénierie</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="right-column">
+                <div class="card friends-card">
+                    <h2>Amici Più Stretti (Amis les plus proches)</h2>
+                    <div class="friends-grid">
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=LDV" alt="Leonardo">
+                             <div class="friend-name">Leonardo da Vinci</div>
+                        </div>
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=NM" alt="Machiavelli">
+                             <div class="friend-name">Niccolò Machiavelli</div>
+                        </div>
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=CS" alt="Caterina">
+                             <div class="friend-name">Caterina Sforza</div>
+                        </div>
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=LV" alt="La Volpe">
+                             <div class="friend-name">La Volpe</div>
+                        </div>
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=BDA" alt="Bartolomeo">
+                             <div class="friend-name">Bartolomeo d'Alviano</div>
+                        </div>
+                         <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=YT" alt="Yusuf">
+                             <div class="friend-name">Yusuf Tazim</div>
+                        </div>
+                        <div class="friend-item">
+                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=SS" alt="Sofia">
+                             <div class="friend-name">Sofia Sartor</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Le Mie Memorie</h2>
+                </div>
+                
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50/8a0303/ffffff?text=E" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">Décembre 1512</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. <em>Requiescat in Pace</em> à tous les frères et sœurs tombés au combat.</p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <button>Publier</button>
+                    </div>
+                    <div class="post-comments">
+                        <div class="comment"><strong>Sofia Sartor:</strong> Benvenuto a casa, amore mio. ❤️</div>
+                        <div class="comment"><strong>Niccolò Machiavelli:</strong> Repose-toi, Mentore. Tu l'as bien mérité. Rome ne t'oubliera pas.</div>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50/8a0303/ffffff?text=E" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">Août 1503</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Cesare est peut-être tombé, mais l'influence des Borgia persiste. Nous avons libéré Rome de leur tyrannie, quartier par quartier. La Confrérie renaît de ses cendres, plus forte que jamais. Je suis fier de nos nouvelles recrues. Avanti !</p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <button>Publier</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment"><strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !</div>
+                        <div class="comment"><strong>Bartolomeo d'Alviano:</strong> BIANCA EST INTRÉPIDE ! ET MON ÉPÉE EST À TON SERVICE, EZIO !</div>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50/8a0303/ffffff?text=E" class="post-author-pic" alt="Ezio">
+                        <div>
+                            <div class="post-author-name">Ezio Auditore</div>
+                            <div class="post-date">Janvier 1500</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.</p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn">❤️ J'aime</button>
+                        <button class="action-btn comment-btn">💬 Commenter</button>
+                    </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <button>Publier</button>
+                    </div>
+                     <div class="post-comments">
+                        <div class="comment"><strong>La Volpe:</strong> Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</div>
+                        <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
+                    </div>
+                </div>
+                
+            </section>
+        </main>
     </div>
 
-    <div class="info-card">
-        <h2 class="text-xl font-semibold text-gray-700">À propos</h2>
-        <p class="mt-2 text-gray-600">Altaïr Ibn-La'Ahad, de Masyaf, a été l'un des plus grands Maîtres Assassins de l'histoire. Après avoir été mentor de l'Ordre, il a consacré sa vie à l'étude des mystères de la Pomme d'Éden et à la réforme de la Confrérie. Son nom signifie "L'oiseau, fils de personne".</p>
-        <ul class="mt-4 text-gray-600 space-y-2">
-            <li><span class="font-medium text-gray-700">Lieu de naissance :</span> Masyaf, Syrie</li>
-            <li><span class="font-medium text-gray-700">Situation amoureuse :</span> Marié à Maria Thorpe en 1193</li>
-            <li><span class="font-medium text-gray-700">Travail :</span> Maître Assassin, Mentor de l'Ordre</li>
-        </ul>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- GESTION DES BOUTONS "J'AIME" ---
+            const likeButtons = document.querySelectorAll('.like-btn');
+            
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Ajoute ou retire la classe 'liked'
+                    this.classList.toggle('liked');
+                    
+                    // Optionnel : change le texte
+                    if (this.classList.contains('liked')) {
+                        this.innerHTML = '❤️ Aimé';
+                    } else {
+                        this.innerHTML = '❤️ J\'aime';
+                    }
+                });
+            });
 
-    <div class="post-card">
-        <h2 class="text-xl font-semibold text-gray-700">Publications récentes</h2>
-        
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 2 jours</p>
-            <p class="mt-2 text-gray-800">"J'ai observé les croisades. Tant de vies perdues pour des terres et des croyances. On se demande si la paix est une illusion à laquelle l'homme ne peut que se soumettre."</p>
-        </div>
-        
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 1 semaine</p>
-            <p class="mt-2 text-gray-800">"J'ai rencontré Maria Thorpe. Sa loyauté envers les Templiers était forte, mais sa soif de vérité était plus grande. Elle a fait un choix qui changera le cours des choses."</p>
-        </div>
-        
-        <div>
-            <p class="text-gray-500 text-sm">Il y a 3 semaines</p>
-            <p class="mt-2 text-gray-800">"Al Mualim a trahi l'Ordre et le Crédo. Sa quête de pouvoir a été sa chute. La vérité ne se plie pas à la volonté d'un seul homme."</p>
-        </div>
-    </div>
-</div>
+            // --- GESTION DES BOUTONS "COMMENTER" ---
+            const commentButtons = document.querySelectorAll('.comment-btn');
+
+            commentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Trouve la boîte de commentaire associée DANS le même post
+                    const post = this.closest('.post');
+                    const commentBox = post.querySelector('.comment-box');
+
+                    // Affiche ou cache la boîte de commentaire
+                    if (commentBox.style.display === 'block') {
+                        commentBox.style.display = 'none';
+                    } else {
+                        commentBox.style.display = 'block';
+                        // Met le focus directement dans le champ de texte
+                        commentBox.querySelector('textarea').focus();
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
