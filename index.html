@@ -169,6 +169,7 @@
             height: 80px;
             border-radius: 50%;
             border: 3px solid var(--color-border);
+            object-fit: cover;
             transition: transform 0.2s;
         }
         
@@ -287,8 +288,18 @@
         }
         
         .comment {
+            display: flex;
+            align-items: flex-start;
             font-size: 0.9em;
             margin-bottom: 8px;
+        }
+        
+        .comment-author-pic {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
         }
         
         .comment strong {
@@ -417,7 +428,7 @@
                     <h2>Amis les plus proches</h2>
                     <div class="friends-grid">
                         <div class="friend-item">
-                             <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=LDV" alt="Leonardo">
+                             <img src="https://www.meisterdrucke.fr/kunstwerke/400px/English_School_-_Leonardo_da_Vinci_-_(MeisterDrucke-60848).jpg" alt="Leonardo">
                              <div class="friend-name">Leonardo da Vinci</div>
                         </div>
                         <div class="friend-item">
@@ -468,7 +479,11 @@
                     </div>
                     <div class="post-comments">
                         <div class="comment-thread">
-                            <div class="comment"><strong>Sofia Sartor:</strong> Benvenuto a casa, amore mio. ❤️</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Sofia Sartor:</strong> Benvenuto a casa, amore mio. ❤️
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -479,7 +494,11 @@
                             </div>
                         </div>
                         <div class="comment-thread">
-                            <div class="comment"><strong>Niccolò Machiavelli:</strong> Repose-toi, Mentore. Tu l'as bien mérité. Rome ne t'oubliera pas.</div>
+                             <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Niccolò Machiavelli:</strong> Repose-toi, Mentore. Tu l'as bien mérité. Rome ne t'oubliera pas.
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -513,7 +532,11 @@
                     </div>
                      <div class="post-comments">
                         <div class="comment-thread">
-                            <div class="comment"><strong>Sofia Sartor:</strong> Fais attention, Ezio. Les histoires parlent de nombreux dangers dans cette ville. Reviens sain et sauf.</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Sofia Sartor:</strong> Fais attention, Ezio. Les histoires parlent de nombreux dangers dans cette ville. Reviens sain et sauf.
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -524,7 +547,11 @@
                             </div>
                         </div>
                         <div class="comment-thread">
-                            <div class="comment"><strong>Claudia Auditore:</strong> Un autre voyage, mon frère ? Puisse la fortune t'assister. Pense à nous.</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Un autre voyage, mon frère ? Puisse la fortune t'assister. Pense à nous.
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -558,7 +585,11 @@
                     </div>
                      <div class="post-comments">
                         <div class="comment-thread">
-                            <div class="comment"><strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Pour notre famille, mon frère. Pour Monteriggioni !
+                                </div>
+                            </div>
                             <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -569,7 +600,11 @@
                             </div>
                         </div>
                         <div class="comment-thread">
-                            <div class="comment"><strong>Bartolomeo d'Alviano:</strong> BIANCA EST INTRÉPIDE ! ET MON ÉPÉE EST À TON SERVICE, EZIO !</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Bartolomeo d'Alviano:</strong> BIANCA EST INTRÉPIDE ! ET MON ÉPÉE EST À TON SERVICE, EZIO !
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -596,9 +631,11 @@
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
-                                <strong>La Volpe:</strong>
-                                <span data-original-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons." data-translation-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo.">Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                                <div class="comment-body">
+                                    <strong>La Volpe:</strong>
+                                    <span data-original-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons." data-translation-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo.">Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
@@ -610,7 +647,12 @@
                             </div>
                         </div>
                         <div class="comment-thread">
-                            <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
+                            <div class="comment">
+                                <img src="https://www.meisterdrucke.fr/kunstwerke/400px/English_School_-_Leonardo_da_Vinci_-_(MeisterDrucke-60848).jpg" alt="Leonardo da Vinci" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -645,9 +687,11 @@
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
-                                <strong>Niccolò Machiavelli:</strong>
-                                <span data-original-fr="Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force." data-translation-it="Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza.">Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                                <div class="comment-body">
+                                    <strong>Niccolò Machiavelli:</strong>
+                                    <span data-original-fr="Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force." data-translation-it="Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza.">Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                             <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
@@ -659,7 +703,11 @@
                             </div>
                         </div>
                         <div class="comment-thread">
-                            <div class="comment"><strong>La Volpe:</strong> Mes voleurs te tiennent informé de ses déplacements. Fais attention, il a de nombreux partisans fanatiques.</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>La Volpe:</strong> Mes voleurs te tiennent informé de ses déplacements. Fais attention, il a de nombreux partisans fanatiques.
+                                </div>
+                            </div>
                             <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -693,7 +741,12 @@
                     </div>
                      <div class="post-comments">
                         <div class="comment-thread">
-                            <div class="comment"><strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !</div>
+                             <div class="comment">
+                                <img src="https://www.meisterdrucke.fr/kunstwerke/400px/English_School_-_Leonardo_da_Vinci_-_(MeisterDrucke-60848).jpg" alt="Leonardo da Vinci" class="comment-author-pic">
+                                <div class="comment-body">
+                                    <strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !
+                                </div>
+                            </div>
                             <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -705,9 +758,11 @@
                         </div>
                         <div class="comment-thread">
                             <div class="comment">
-                                <strong>Niccolò Machiavelli:</strong>
-                                <span data-original-fr="Une approche audacieuse, mais efficace. Bien joué." data-translation-it="Un approccio audace, ma efficace. Ben fatto.">Une approche audacieuse, mais efficace. Bien joué.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                                <div class="comment-body">
+                                    <strong>Niccolò Machiavelli:</strong>
+                                    <span data-original-fr="Une approche audacieuse, mais efficace. Bien joué." data-translation-it="Un approccio audace, ma efficace. Ben fatto.">Une approche audacieuse, mais efficace. Bien joué.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
@@ -742,7 +797,11 @@
                     </div>
                      <div class="post-comments">
                         <div class="comment-thread">
-                            <div class="comment"><strong>Claudia Auditore:</strong> Je m'occupe des finances, frère. Pendant que tu t'entraînes, je fais en sorte que nous ayons les moyens de nos ambitions.</div>
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <strong>Claudia Auditore:</strong> Je m'occupe des finances, frère. Pendant que tu t'entraînes, je fais en sorte que nous ayons les moyens de nos ambitions.
+                                </div>
+                            </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div>
@@ -815,7 +874,7 @@
 
             translateCommentButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const commentSpan = this.previousElementSibling;
+                    const commentSpan = this.closest('.comment-body span, div span');
                     const originalText = commentSpan.dataset.originalFr;
                     const translatedText = commentSpan.dataset.translationIt;
 
