@@ -223,7 +223,6 @@
         .post-content p {
             margin-top: 0;
             margin-bottom: 10px;
-            font-style: italic;
         }
         
         .translate-btn {
@@ -275,6 +274,17 @@
         .post-comments {
             margin-top: 15px;
         }
+
+        .comment-thread {
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+        .comment-thread:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
         
         .comment {
             font-size: 0.9em;
@@ -302,6 +312,8 @@
             margin-left: 40px;
             margin-top: 10px;
             margin-bottom: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--color-border);
             font-size: 0.9em;
         }
         
@@ -317,10 +329,6 @@
             display: block;
         }
         
-        .comment-reply span {
-            font-style: italic;
-        }
-
         /* --- Champ de commentaire caché --- */
         .comment-box {
             display: none; /* Caché par défaut */
@@ -448,37 +456,41 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare."
-                           data-translation-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.">
-                           Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.
+                        <p data-original-fr="Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher."
+                           data-translation-it="Venezia, città di maschere e segreti. Ho affrontato i Barbarigo durante il Carnevale. Ogni volto dietro una maschera può nascondere un amico... o un nemico. La verità è spesso velata, ma la giustizia deve sempre trionfare.">
+                           Venise, ville de masques et de secrets. J'ai affronté les Barbarigo pendant le Carnaval. Chaque visage derrière un masque peut cacher un ami... ou un ennemi. La vérité est souvent voilée, mais la justice doit toujours triompher.
                         </p>
                     </div>
-                    <button class="translate-btn">Traduire</button>
+                    <button class="translate-btn">Traduire en italien</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                      <div class="post-comments">
-                        <div class="comment"><strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !</div>
-                        <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Ha funzionato a meraviglia. Sei un genio, amico mio." data-translation-fr="Elle a fonctionné à merveille. Tu es un génie, mon ami.">Ha funzionato a meraviglia. Sei un genio, amico mio.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Leonardo da Vinci:</strong> J'espère que la nouvelle lame-poison que je t'ai confectionnée a été utile !</div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Elle a fonctionné à merveille. Tu es un génie, mon ami." data-translation-it="Ha funzionato a meraviglia. Sei un genio, amico mio.">Elle a fonctionné à merveille. Tu es un génie, mon ami.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="comment">
-                            <strong>Niccolò Machiavelli:</strong>
-                            <span data-original-it="Un approccio audace, ma efficace. Ben fatto." data-translation-fr="Une approche audacieuse, mais efficace. Bien joué.">Un approccio audace, ma efficace. Ben fatto.</span>
-                            <button class="translate-comment-btn">Traduire</button>
-                        </div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="A volte l'audacia è necessaria. Grazie." data-translation-fr="Parfois, l'audace est nécessaire. Merci.">A volte l'audacia è necessaria. Grazie.</span>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <strong>Niccolò Machiavelli:</strong>
+                                <span data-original-fr="Une approche audacieuse, mais efficace. Bien joué." data-translation-it="Un approccio audace, ma efficace. Ben fatto.">Une approche audacieuse, mais efficace. Bien joué.</span>
                                 <button class="translate-comment-btn">Traduire</button>
+                            </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Parfois, l'audace est nécessaire. Merci." data-translation-it="A volte l'audacia è necessaria. Grazie.">Parfois, l'audace est nécessaire. Merci.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -493,37 +505,41 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Firenze è caduta nella follia di Savonarola. Bruciano libri e arte... la conoscenza stessa. Questo frate predica l'umiltà ma brama il potere. Non posso restare a guardare mentre la mia città sprofonda nell'oscurità."
-                           data-translation-fr="Florence est tombée dans la folie de Savonarole. Ils brûlent des livres et des œuvres d'art... la connaissance elle-même. Ce moine prêche l'humilité mais ne désire que le pouvoir. Je ne peux pas rester sans rien faire pendant que ma ville sombre dans les ténèbres.">
-                           Firenze è caduta nella follia di Savonarola. Bruciano libri e arte... la conoscenza stessa. Questo frate predica l'umiltà ma brama il potere. Non posso restare a guardare mentre la mia città sprofonda nell'oscurità.
+                        <p data-original-fr="Florence est tombée dans la folie de Savonarole. Ils brûlent des livres et des œuvres d'art... la connaissance elle-même. Ce moine prêche l'humilité mais ne désire que le pouvoir. Je ne peux pas rester sans rien faire pendant que ma ville sombre dans les ténèbres."
+                           data-translation-it="Firenze è caduta nella follia di Savonarola. Bruciano libri e arte... la conoscenza stessa. Questo frate predica l'umiltà ma brama il potere. Non posso restare a guardare mentre la mia città sprofonda nell'oscurità.">
+                           Florence est tombée dans la folie de Savonarole. Ils brûlent des livres et des œuvres d'art... la connaissance elle-même. Ce moine prêche l'humilité mais ne désire que le pouvoir. Je ne peux pas rester sans rien faire pendant que ma ville sombre dans les ténèbres.
                         </p>
                     </div>
-                    <button class="translate-btn">Traduire</button>
+                    <button class="translate-btn">Traduire en italien</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                      <div class="post-comments">
-                        <div class="comment">
-                            <strong>Niccolò Machiavelli:</strong>
-                            <span data-original-it="Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza." data-translation-fr="Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force.">Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza.</span>
-                            <button class="translate-comment-btn">Traduire</button>
-                        </div>
-                        <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Hai ragione. La lama da sola non basta. Dobbiamo colpire la sua influenza." data-translation-fr="Tu as raison. La lame seule ne suffit pas. Nous devons frapper son influence.">Hai ragione. La lama da sola non basta. Dobbiamo colpire la sua influenza.</span>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <strong>Niccolò Machiavelli:</strong>
+                                <span data-original-fr="Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force." data-translation-it="Il popolo è volubile, Ezio. Si lascia sedurre dalle parole forti. Serve un piano, non solo la forza.">Le peuple est versatile, Ezio. Il se laisse séduire par les paroles fortes. Il faut un plan, pas seulement la force.</span>
                                 <button class="translate-comment-btn">Traduire</button>
                             </div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Tu as raison. La lame seule ne suffit pas. Nous devons frapper son influence." data-translation-it="Hai ragione. La lama da sola non basta. Dobbiamo colpire la sua influenza.">Tu as raison. La lame seule ne suffit pas. Nous devons frapper son influence.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="comment"><strong>La Volpe:</strong> Mes voleurs te tiennent informé de ses déplacements. Fais attention, il a de nombreux partisans fanatiques.</div>
-                        <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="La loro fede cieca li rende prevedibili. Grazie per le informazioni." data-translation-fr="Leur foi aveugle les rend prévisibles. Merci pour les informations.">La loro fede cieca li rende prevedibili. Grazie per le informazioni.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>La Volpe:</strong> Mes voleurs te tiennent informé de ses déplacements. Fais attention, il a de nombreux partisans fanatiques.</div>
+                            <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Leur foi aveugle les rend prévisibles. Merci pour les informations." data-translation-it="La loro fede cieca li rende prevedibili. Grazie per le informazioni.">Leur foi aveugle les rend prévisibles. Merci pour les informations.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -538,37 +554,41 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa."
-                           data-translation-fr="Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.">
-                           Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa.
+                        <p data-original-fr="Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse."
+                           data-translation-it="Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa.">
+                           Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.
                         </p>
                     </div>
-                    <button class="translate-btn">Traduire</button>
+                    <button class="translate-btn">Traduire en italien</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                      <div class="post-comments">
-                        <div class="comment">
-                            <strong>La Volpe:</strong>
-                            <span data-original-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo." data-translation-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons.">I miei ladri sono a tua disposizione a Roma. Lo troveremo.</span>
-                            <button class="translate-comment-btn">Traduire</button>
-                        </div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Apprezzo il tuo aiuto, Volpe. Muovetevi nell'ombra." data-translation-fr="J'apprécie ton aide, Volpe. Agissez dans l'ombre.">Apprezzo il tuo aiuto, Volpe. Muovetevi nell'ombra.</span>
+                        <div class="comment-thread">
+                            <div class="comment">
+                                <strong>La Volpe:</strong>
+                                <span data-original-fr="Mes voleurs sont à ta disposition à Rome. Nous le trouverons." data-translation-it="I miei ladri sono a tua disposizione a Roma. Lo troveremo.">Mes voleurs sont à ta disposition à Rome. Nous le trouverons.</span>
                                 <button class="translate-comment-btn">Traduire</button>
                             </div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="J'apprécie ton aide, Volpe. Agissez dans l'ombre." data-translation-it="Apprezzo il tuo aiuto, Volpe. Muovetevi nell'ombra.">J'apprécie ton aide, Volpe. Agissez dans l'ombre.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Leonardo, amico mio... Le recupererò. Te lo prometto." data-translation-fr="Leonardo, mon ami... Je les récupérerai. Je te le promets.">Leonardo, amico mio... Le recupererò. Te lo prometto.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Leonardo da Vinci:</strong> Mes machines... il les a prises. Fais attention, Ezio. Sa cruauté n'a d'égale que son ambition.</div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Leonardo, mon ami... Je les récupérerai. Je te le promets." data-translation-it="Leonardo, amico mio... Le recupererò. Te lo prometto.">Leonardo, mon ami... Je les récupérerai. Je te le promets.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -583,33 +603,37 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Sono arrivato a Masyaf, la vecchia fortezza di Altaïr. Pensavo di trovare risposte, ma ho trovato solo Templari. Hanno profanato questo luogo sacro. La biblioteca di Altaïr è sigillata... Le chiavi sono a Costantinopoli. Il mio viaggio non è ancora finito."
-                           data-translation-fr="Je suis arrivé à Masyaf, l'ancienne forteresse d'Altaïr. Je pensais trouver des réponses, mais je n'ai trouvé que des Templiers. Ils ont profané ce lieu sacré. La bibliothèque d'Altaïr est scellée... Les clés sont à Constantinople. Mon voyage n'est pas encore terminé.">
-                           Sono arrivato a Masyaf, la vecchia fortezza di Altaïr. Pensavo di trovare risposte, ma ho trovato solo Templari. Hanno profanato questo luogo sacro. La biblioteca di Altaïr è sigillata... Le chiavi sono a Costantinopoli. Il mio viaggio non è ancora finito.
+                        <p data-original-fr="Je suis arrivé à Masyaf, l'ancienne forteresse d'Altaïr. Je pensais trouver des réponses, mais je n'ai trouvé que des Templiers. Ils ont profané ce lieu sacré. La bibliothèque d'Altaïr est scellée... Les clés sont à Constantinople. Mon voyage n'est pas encore terminé."
+                           data-translation-it="Sono arrivato a Masyaf, la vecchia fortezza di Altaïr. Pensavo di trovare risposte, ma ho trovato solo Templari. Hanno profanato questo luogo sacro. La biblioteca di Altaïr è sigillata... Le chiavi sono a Costantinopoli. Il mio viaggio non è ancora finito.">
+                           Je suis arrivé à Masyaf, l'ancienne forteresse d'Altaïr. Je pensais trouver des réponses, mais je n'ai trouvé que des Templiers. Ils ont profané ce lieu sacré. La bibliothèque d'Altaïr est scellée... Les clés sont à Constantinople. Mon voyage n'est pas encore terminé.
                         </p>
                     </div>
-                    <button class="translate-btn">Traduire</button>
+                    <button class="translate-btn">Traduire en italien</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                      <div class="post-comments">
-                        <div class="comment"><strong>Sofia Sartor:</strong> Fai attenzione, Ezio. Le storie parlano di molti pericoli in quella città. Torna sano e salvo.</div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Lo farò. La promessa di conoscenza è troppo grande per essere ignorata. Ma tornerò." data-translation-fr="Je le ferai. La promesse de la connaissance est trop grande pour être ignorée. Mais je reviendrai.">Lo farò. La promessa di conoscenza è troppo grande per essere ignorata. Ma tornerò.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Sofia Sartor:</strong> Fais attention, Ezio. Les histoires parlent de nombreux pericoli in quella città. Torna sano e salvo.</div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Je le ferai. La promesse de la connaissance est trop grande pour être ignorée. Mais je reviendrai." data-translation-it="Lo farò. La promessa di conoscenza è troppo grande per essere ignorata. Ma tornerò.">Je le ferai. La promesse de la connaissance est trop grande pour être ignorée. Mais je reviendrai.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="comment"><strong>Claudia Auditore:</strong> Un altro viaggio, fratello? Possa la fortuna assisterti. Pensa a noi.</div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Sempre, sorella mia. Lo faccio per il futuro della nostra famiglia e dell'Ordine." data-translation-fr="Toujours, ma sœur. Je le fais pour l'avenir de notre famille et de l'Ordre.">Sempre, sorella mia. Lo faccio per il futuro della nostra famiglia e dell'Ordine.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Claudia Auditore:</strong> Un autre voyage, fratello? Possa la fortuna assisterti. Pensa a noi.</div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Toujours, ma sœur. Je le fais pour l'avenir de notre famille et de l'Ordre." data-translation-it="Sempre, sorella mia. Lo faccio per il futuro della nostra famiglia e dell'Ordine.">Toujours, ma sœur. Je le fais pour l'avenir de notre famille et de l'Ordre.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -624,33 +648,37 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p data-original-it="Ritorno in Toscana con la mia cara Sofia. Costantinopoli e i segreti di Altaïr sembrano già lontani. Depongo le lame e il cappuccio. Inizia una nuova vita, quella di un padre e di un marito. La lotta è finita, ma il ricordo dei nostri principi rimarrà. Requiescat in Pace a tutti i fratelli e le sorelle caduti."
-                           data-translation-fr="De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. Requiescat in Pace à tous les frères et sœurs tombés au combat.">
-                           Ritorno in Toscana con la mia cara Sofia. Costantinopoli e i segreti di Altaïr sembrano già lontani. Depongo le lame e il cappuccio. Inizia una nuova vita, quella di un padre e di un marito. La lotta è finita, ma il ricordo dei nostri principi rimarrà. <em>Requiescat in Pace</em> a tutti i fratelli e le sorelle caduti.
+                        <p data-original-fr="De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. Requiescat in Pace à tous les frères et sœurs tombés au combat."
+                           data-translation-it="Ritorno in Toscana con la mia cara Sofia. Costantinopoli e i segreti di Altaïr sembrano già lontani. Depongo le lame e il cappuccio. Inizia una nuova vita, quella di un padre e di un marito. La lotta è finita, ma il ricordo dei nostri principi rimarrà. Requiescat in Pace a tutti i fratelli e le sorelle caduti.">
+                           De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. <em>Requiescat in Pace</em> à tous les frères et sœurs tombés au combat.
                         </p>
                     </div>
-                    <button class="translate-btn">Traduire</button>
+                    <button class="translate-btn">Traduire en italien</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                     <div class="post-comments">
-                        <div class="comment"><strong>Sofia Sartor:</strong> Benvenuto a casa, amore mio. ❤️</div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="È bello essere finalmente a casa, con te." data-translation-fr="C'est bon d'être enfin à la maison, avec toi.">È bello essere finalmente a casa, con te.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Sofia Sartor:</strong> Benvenuto a casa, amore mio. ❤️</div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="C'est bon d'être enfin à la maison, avec toi." data-translation-it="È bello essere finalmente a casa, con te.">C'est bon d'être enfin à la maison, avec toi.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="comment"><strong>Niccolò Machiavelli:</strong> Repose-toi, Mentore. Tu l'as bien mérité. Rome ne t'oubliera pas.</div>
-                         <div class="comment-reply">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
-                            <div>
-                                <strong>Ezio Auditore (réponse):</strong>
-                                <span data-original-it="Grazie, Niccolò. Roma è in buone mani. Vegliate su di essa per me." data-translation-fr="Merci, Niccolò. Rome est entre de bonnes mains. Veillez sur elle pour moi.">Grazie, Niccolò. Roma è in buone mani. Vegliate su di essa per me.</span>
-                                <button class="translate-comment-btn">Traduire</button>
+                        <div class="comment-thread">
+                            <div class="comment"><strong>Niccolò Machiavelli:</strong> Repose-toi, Mentore. Tu l'as bien mérité. Rome ne t'oubliera pas.</div>
+                             <div class="comment-reply">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
+                                <div>
+                                    <strong>Ezio Auditore (réponse):</strong>
+                                    <span data-original-fr="Merci, Niccolò. Rome est entre de bonnes mains. Veillez sur elle pour moi." data-translation-it="Grazie, Niccolò. Roma è in buone mani. Vegliate su di essa per me.">Merci, Niccolò. Rome est entre de bonnes mains. Veillez sur elle pour moi.</span>
+                                    <button class="translate-comment-btn">Traduire</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -698,15 +726,15 @@
             translateButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const postContentP = this.closest('.post').querySelector('.post-content p');
-                    const originalText = postContentP.dataset.originalIt;
-                    const translatedText = postContentP.dataset.translationFr;
+                    const originalText = postContentP.dataset.originalFr;
+                    const translatedText = postContentP.dataset.translationIt;
 
-                    if (this.textContent === 'Traduire') {
+                    if (this.textContent === 'Traduire en italien') {
                         postContentP.innerHTML = translatedText;
-                        this.textContent = 'Voir l\'original';
+                        this.textContent = 'Voir en français';
                     } else {
                         postContentP.innerHTML = originalText;
-                        this.textContent = 'Traduire';
+                        this.textContent = 'Traduire en italien';
                     }
                 });
             });
@@ -717,12 +745,12 @@
             translateCommentButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const commentSpan = this.previousElementSibling;
-                    const originalText = commentSpan.dataset.originalIt;
-                    const translatedText = commentSpan.dataset.translationFr;
+                    const originalText = commentSpan.dataset.originalFr;
+                    const translatedText = commentSpan.dataset.translationIt;
 
                     if (this.textContent === 'Traduire') {
                         commentSpan.textContent = translatedText;
-                        this.textContent = 'Original';
+                        this.textContent = 'Français';
                     } else {
                         commentSpan.textContent = originalText;
                         this.textContent = 'Traduire';
