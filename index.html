@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronaca | Profilo di Ezio Auditore</title>
+    <title>Cronaca | Profil de Ezio Auditore</title>
     <style>
         /* --- Polices & Couleurs Inspirées de la Renaissance --- */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
@@ -137,7 +137,7 @@
             color: var(--color-red-accent);
         }
 
-        /* --- NOUVELLE Section Amis --- */
+        /* --- Section Amis --- */
         .friends-card .friends-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -166,7 +166,7 @@
             margin-top: 5px;
         }
         
-        /* --- Section "Memorie" (Le Mur) --- */
+        /* --- Section Fil d'actualité --- */
         .post {
             background-color: var(--color-card-bg);
             border: 1px solid var(--color-border);
@@ -202,10 +202,27 @@
 
         .post-content p {
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            font-style: italic;
         }
         
-        /* --- NOUVEAUX Boutons J'aime/Commenter --- */
+        .translate-btn {
+            background: none;
+            border: none;
+            color: var(--color-interactive);
+            font-size: 0.8em;
+            font-style: italic;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+
+        .translate-btn:hover {
+            color: var(--color-red-accent);
+        }
+        
+        /* --- Boutons J'aime/Commenter --- */
         .post-actions {
             display: flex;
             gap: 10px;
@@ -248,7 +265,7 @@
             color: var(--color-red-accent);
         }
 
-        /* --- NOUVEAU Champ de commentaire caché --- */
+        /* --- Champ de commentaire caché --- */
         .comment-box {
             display: none; /* Caché par défaut */
             margin-top: 15px;
@@ -294,7 +311,7 @@
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" alt="Portrait de Ezio Auditore" class="profile-pic">
                 <div class="profile-name">
                     <h1>Ezio Auditore da Firenze</h1>
-                    <p class="bio">Nobile Fiorentino, Assassino e Mentore dell'Ordine.</p>
+                    <p class="bio">Noble Florentin, Assassin et Mentor de l'Ordre.</p>
                     <p class="creed">"Laa Shay'a Waqi'un Mutlaq, Bal Kullun Mumkin."</p>
                 </div>
             </div>
@@ -303,18 +320,18 @@
         <main class="main-content">
             <aside class="left-column">
                 <div class="card">
-                    <h2>Dettagli Personali</h2>
+                    <h2>Détails Personnels</h2>
                     <ul class="details-list">
-                        <li><strong>Nato il:</strong> 24 juin 1459</li>
-                        <li><strong>Origine:</strong> Firenze, Repubblica Fiorentina</li>
-                        <li><strong>Residenza:</strong> Villa Auditore | Isola Tiberina</li>
-                        <li><strong>Professione:</strong> Maître Assassin</li>
-                        <li><strong>Famiglia:</strong> Casa Auditore</li>
-                        <li><strong>Situazione:</strong> Marié à Sofia Sartor</li>
+                        <li><strong>Né le:</strong> 24 juin 1459</li>
+                        <li><strong>Origine:</strong> Florence, République Florentine</li>
+                        <li><strong>Résidence:</strong> Villa Auditore | Île Tibérine</li>
+                        <li><strong>Profession:</strong> Maître Assassin</li>
+                        <li><strong>Famille:</strong> Maison Auditore</li>
+                        <li><strong>Situation:</strong> Marié à Sofia Sartor</li>
                     </ul>
                 </div>
                 <div class="card">
-                    <h2>Abilità & Interessi</h2>
+                    <h2>Compétences & Intérêts</h2>
                     <ul class="details-list">
                         <li>Maîtrise de la Lame Secrète</li>
                         <li>Alpinisme Urbain (Freerunning)</li>
@@ -327,7 +344,7 @@
 
             <section class="right-column">
                 <div class="card friends-card">
-                    <h2>Amici Più Stretti (Amis les plus proches)</h2>
+                    <h2>Amis les plus proches</h2>
                     <div class="friends-grid">
                         <div class="friend-item">
                              <img src="https://via.placeholder.com/80/d4c5a5/3d2b1f?text=LDV" alt="Leonardo">
@@ -360,10 +377,6 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <h2>Le Mie Memorie</h2>
-                </div>
-                
                 <div class="post">
                     <div class="post-header">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="post-author-pic" alt="Ezio">
@@ -373,14 +386,18 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p>De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. <em>Requiescat in Pace</em> à tous les frères et sœurs tombés au combat.</p>
+                        <p data-original-it="Ritorno in Toscana con la mia cara Sofia. Costantinopoli e i segreti di Altaïr sembrano già lontani. Depongo le lame e il cappuccio. Inizia una nuova vita, quella di un padre e di un marito. La lotta è finita, ma il ricordo dei nostri principi rimarrà. Requiescat in Pace a tutti i fratelli e le sorelle caduti."
+                           data-translation-fr="De retour en Toscane avec ma chère Sofia. Constantinople et les secrets d'Altaïr semblent déjà loin. Je dépose les lames et le capuchon. Une nouvelle vie commence, celle d'un père et d'un mari. La lutte est terminée, mais le souvenir de nos principes demeurera. Requiescat in Pace à tous les frères et sœurs tombés au combat.">
+                           Ritorno in Toscana con la mia cara Sofia. Costantinopoli e i segreti di Altaïr sembrano già lontani. Depongo le lame e il cappuccio. Inizia una nuova vita, quella di un padre e di un marito. La lotta è finita, ma il ricordo dei nostri principi rimarrà. <em>Requiescat in Pace</em> a tutti i fratelli e le sorelle caduti.
+                        </p>
                     </div>
+                    <button class="translate-btn">Traduire</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                     <div class="comment-box">
-                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
                         <button>Publier</button>
                     </div>
                     <div class="post-comments">
@@ -398,14 +415,18 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p>Cesare est peut-être tombé, mais l'influence des Borgia persiste. Nous avons libéré Rome de leur tyrannie, quartier par quartier. La Confrérie renaît de ses cendres, plus forte que jamais. Je suis fier de nos nouvelles recrues. Avanti !</p>
+                        <p data-original-it="Cesare sarà anche caduto, ma l'influenza dei Borgia persiste. Abbiamo liberato Roma dalla loro tirannia, rione dopo rione. La Confraternita rinasce dalle sue ceneri, più forte che mai. Sono fiero delle nostre nuove reclute. Avanti!"
+                           data-translation-fr="Cesare est peut-être tombé, mais l'influence des Borgia persiste. Nous avons libéré Rome de leur tyrannie, quartier par quartier. La Confrérie renaît de ses cendres, plus forte que jamais. Je suis fier de nos nouvelles recrues. Avanti !">
+                           Cesare sarà anche caduto, ma l'influenza dei Borgia persiste. Abbiamo liberato Roma dalla loro tirannia, rione dopo rione. La Confraternita rinasce dalle sue ceneri, più forte che mai. Sono fiero delle nostre nuove reclute. Avanti!
+                        </p>
                     </div>
+                    <button class="translate-btn">Traduire</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                     <div class="comment-box">
-                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
                         <button>Publier</button>
                     </div>
                      <div class="post-comments">
@@ -423,14 +444,18 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p>Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que taête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.</p>
+                        <p data-original-it="Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa."
+                           data-translation-fr="Monteriggioni... Ma maison... en ruines. Ils m'ont tout pris. Mon oncle, ma forteresse, la Pomme. Cesare Borgia, je ne connaîtrai aucun repos tant que ta tête ne sera pas séparée de tes épaules. Ceci n'est pas une vengeance. C'est une promesse.">
+                           Monteriggioni... Casa mia... in rovina. Mi hanno tolto tutto. Mio zio, la mia fortezza, la Mela. Cesare Borgia, non conoscerò riposo finché la tua testa non sarà separata dalle tue spalle. Questa non è vendetta. È una promessa.
+                        </p>
                     </div>
+                    <button class="translate-btn">Traduire</button>
                     <div class="post-actions">
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
                     <div class="comment-box">
-                        <textarea placeholder="Scrivi un commento..."></textarea>
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
                         <button>Publier</button>
                     </div>
                      <div class="post-comments">
@@ -450,10 +475,7 @@
             
             likeButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Ajoute ou retire la classe 'liked'
                     this.classList.toggle('liked');
-                    
-                    // Optionnel : change le texte
                     if (this.classList.contains('liked')) {
                         this.innerHTML = '❤️ Aimé';
                     } else {
@@ -467,17 +489,32 @@
 
             commentButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Trouve la boîte de commentaire associée DANS le même post
                     const post = this.closest('.post');
                     const commentBox = post.querySelector('.comment-box');
-
-                    // Affiche ou cache la boîte de commentaire
                     if (commentBox.style.display === 'block') {
                         commentBox.style.display = 'none';
                     } else {
                         commentBox.style.display = 'block';
-                        // Met le focus directement dans le champ de texte
                         commentBox.querySelector('textarea').focus();
+                    }
+                });
+            });
+
+            // --- GESTION DES BOUTONS "TRADUIRE" ---
+            const translateButtons = document.querySelectorAll('.translate-btn');
+
+            translateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postContent = this.closest('.post').querySelector('.post-content p');
+                    const originalText = postContent.dataset.originalIt;
+                    const translatedText = postContent.dataset.translationFr;
+
+                    if (this.textContent === 'Traduire') {
+                        postContent.innerHTML = translatedText;
+                        this.textContent = 'Voir l\'original';
+                    } else {
+                        postContent.innerHTML = originalText;
+                        this.textContent = 'Traduire';
                     }
                 });
             });
