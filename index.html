@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil de Ezio Auditore</title>
+    <title>Profil de Altaïr Ibn-La'Ahad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --color-primary: #8C4B4B;
-            --color-secondary: #B8860B;
-            --color-background: #F0EAD6;
+            --color-primary: #0A0A0A;
+            --color-secondary: #C0C0C0;
+            --color-background: #E0E0E0;
             --color-card: #FFFFFF;
-            --color-text: #2D2D2D;
-            --color-text-light: #5A5A5A;
+            --color-text: #1C1C1C;
+            --color-text-light: #4A4A4A;
         }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
-            background-image: linear-gradient(to bottom right, #f0ead6, #e6dace);
+            background-image: linear-gradient(to bottom right, #e0e0e0, #cfcfcf);
             background-attachment: fixed;
         }
         .title-font {
@@ -34,6 +34,9 @@
             padding: 2rem;
             color: var(--color-text);
         }
+        .profile-header {
+            text-align: center;
+        }
         .profile-image {
             width: 150px;
             height: 150px;
@@ -47,7 +50,7 @@
         .cover-photo {
             width: 100%;
             height: 200px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://stevivor.com/wp-content/uploads/2016/08/ezio.webp') no-repeat center center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://image.noelshack.com/fichiers/2025/37/7/1757827877-altair-cover.jpg') no-repeat center center;
             background-size: cover;
             border-radius: 12px 12px 0 0;
         }
@@ -64,626 +67,47 @@
             padding: 1.5rem;
             margin-top: 1.5rem;
         }
-        .like-button {
-            transition: all 0.3s ease;
-        }
-        .like-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Styles pour la modale d'image */
-        .image-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .image-modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-        }
-        .image-modal-content img {
-            display: block;
-            width: auto;
-            max-width: 100%;
-            max-height: 100%;
-            margin: auto;
-        }
-        .image-modal-close {
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            color: #fff;
-            font-size: 35px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .image-modal-close:hover {
-            color: #bbb;
-        }
-        /* Styles pour le chat IA */
-        .chat-container {
-            width: 100%;
-            max-width: 400px;
-            height: 500px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            overflow: hidden;
-            display: none; /* Cache par défaut */
-        }
-        .chat-header {
-            background-color: var(--color-primary);
-            color: white;
-            padding: 1rem;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-messages {
-            flex-grow: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            background-color: #f9fafb;
-        }
-        .chat-input {
-            padding: 1rem;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-        }
-        .chat-input input {
-            flex-grow: 1;
-            border: 1px solid #d1d5db;
-            border-radius: 9999px;
-            padding: 0.5rem 1rem;
-            margin-right: 0.5rem;
-        }
-        .message {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-end;
-        }
-        .message.user {
-            justify-content: flex-end;
-        }
-        .message.user .bubble {
-            background-color: #8C4B4B;
-            color: white;
-            border-radius: 12px 12px 0 12px;
-        }
-        .message.ezio .bubble {
-            background-color: #e5e7eb;
-            color: #2D2D2D;
-            border-radius: 12px 12px 12px 0;
-        }
-        .message .bubble {
-            padding: 0.75rem 1rem;
-            max-width: 75%;
-            word-wrap: break-word;
-        }
     </style>
 </head>
 <body>
 
 <div class="profile-container">
-    <div class="text-xs text-right text-gray-400">ID de l'utilisateur : <span id="user-id">Chargement...</span></div>
-    
     <div class="profile-header">
-        <div class="cover-photo cursor-pointer" onclick="openImageModal('https://stevivor.com/wp-content/uploads/2016/08/ezio.webp')"></div>
-        <img class="profile-image mx-auto object-cover cursor-pointer" src="https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/6135f9ed-fd26-4676-544c-0ed43c0e0700/avatarhd" alt="Photo de profil d'Ezio Auditore" onclick="openImageModal(this.src)">
-        <h1 class="text-3xl font-bold mt-4 text-gray-800 title-font">Ezio Auditore da Firenze</h1>
+        <div class="cover-photo"></div>
+        <img class="profile-image mx-auto object-cover" src="https://image.noelshack.com/fichiers/2025/37/7/1757827877-altair-profil.jpg" alt="Photo de profil d'Altaïr Ibn-La'Ahad">
+        <h1 class="text-3xl font-bold mt-4 text-gray-800 title-font">Altaïr Ibn-La'Ahad</h1>
         <p class="text-gray-500 mt-2">"Rien n'est vrai, tout est permis."</p>
-    </div>
-
-    <div class="flex justify-center mt-6 items-center">
-        <button id="like-button" class="like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block -mt-1 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-            </svg>
-            J'aime
-        </button>
-        <span id="like-count" class="ml-4 text-xl font-bold text-gray-700">0</span>
     </div>
 
     <div class="info-card">
         <h2 class="text-xl font-semibold text-gray-700">À propos</h2>
-        <p class="mt-2 text-gray-600">Un homme de la Renaissance. J'ai eu une vie bien remplie, entre les arts, la famille... et les affaires qui se règlent discrètement depuis les toits. Maître Assassin, pour le bien de l'humanité.</p>
+        <p class="mt-2 text-gray-600">Altaïr Ibn-La'Ahad, de Masyaf, a été l'un des plus grands Maîtres Assassins de l'histoire. Après avoir été mentor de l'Ordre, il a consacré sa vie à l'étude des mystères de la Pomme d'Éden et à la réforme de la Confrérie. Son nom signifie "L'oiseau, fils de personne".</p>
         <ul class="mt-4 text-gray-600 space-y-2">
-            <li><span class="font-medium text-gray-700">Ville actuelle :</span> Florence, Italie</li>
-            <li><span class="font-medium text-gray-700">Situation amoureuse :</span> Marié à Sofia Sartor</li>
-            <li><span class="font-medium text-gray-700">Travail :</span> Maître Assassin</li>
+            <li><span class="font-medium text-gray-700">Lieu de naissance :</span> Masyaf, Syrie</li>
+            <li><span class="font-medium text-gray-700">Situation amoureuse :</span> Marié à Maria Thorpe en 1193</li>
+            <li><span class="font-medium text-gray-700">Travail :</span> Maître Assassin, Mentor de l'Ordre</li>
         </ul>
-    </div>
-
-    <div class="info-card">
-        <h2 class="text-xl font-semibold text-gray-700">Photos</h2>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <img class="rounded-lg shadow-md w-full h-auto object-cover cursor-pointer" src="https://image.noelshack.com/fichiers/2025/37/6/1757729385-unnamed.jpg" alt="Photo d'Ezio sur un belvédère" onclick="openImageModal(this.src)">
-            <img class="rounded-lg shadow-md w-full h-auto object-cover cursor-pointer" src="https://image.noelshack.com/fichiers/2025/37/6/1757730027-unnamed-1.jpg" alt="Photo d'Ezio avec Leonardo da Vinci" onclick="openImageModal(this.src)">
-        </div>
     </div>
 
     <div class="post-card">
         <h2 class="text-xl font-semibold text-gray-700">Publications récentes</h2>
         
         <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 5 heures</p>
-            <p class="mt-2 text-gray-800">"Les toits de Florence offrent la meilleure perspective. Il faut juste faire attention où on met les pieds. Certains ont la tête un peu dure... et tombent plus vite que prévu."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-1" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-1')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-1" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-1')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-1">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-1" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-1" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-1')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Hier</p>
-            <p class="mt-2 text-gray-800">"Je viens de terminer une réunion avec Leonardo. Un génie, mais il a une fâcheuse tendance à vouloir créer des machines volantes. Je lui ai dit que mes pieds étaient plus fiables."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-2" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-2')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-2" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-2')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-2">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-2" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-2" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-2')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-        <div>
             <p class="text-gray-500 text-sm">Il y a 2 jours</p>
-            <p class="mt-2 text-gray-800">"On m'a demandé quel était mon plus grand secret. J'ai répondu : l'entraînement, la discrétion, et ne jamais, au grand jamais, oublier de glisser sa lame secrète."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-3" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-3')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-3" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-3')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-3">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-3" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-3" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-3')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
+            <p class="mt-2 text-gray-800">"J'ai observé les croisades. Tant de vies perdues pour des terres et des croyances. On se demande si la paix est une illusion à laquelle l'homme ne peut que se soumettre."</p>
         </div>
         
         <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a 4 jours</p>
-            <p class="mt-2 text-gray-800">"Ma vie a commencé avec la perte de ma famille et la soif de vengeance. J'ai compris avec le temps que la vengeance n'est pas un but. C'est le chemin qui nous mène à la justice."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-4" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-4')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-4" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-4')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-4">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-4" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-4" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-4')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
+            <p class="text-gray-500 text-sm">Il y a 1 semaine</p>
+            <p class="mt-2 text-gray-800">"J'ai rencontré Maria Thorpe. Sa loyauté envers les Templiers était forte, mais sa soif de vérité était plus grande. Elle a fait un choix qui changera le cours des choses."</p>
         </div>
-
-        <div class="border-b pb-4 mb-4">
-            <p class="text-gray-500 text-sm">Il y a une semaine</p>
-            <p class="mt-2 text-gray-800">"Ce n'est pas parce qu'un homme est riche qu'il a du goût. J'ai vu des robes qui valaient des milliers de florins, mais qui feraient fuir un moine. Et j'ai vu des assassins qui valaient leur pesant d'or."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-5" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-5')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-5" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-5')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-5">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-5" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-5" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-5')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
-        </div>
-
+        
         <div>
-            <p class="text-gray-500 text-sm">Il y a 6 semaines</p>
-            <p class="mt-2 text-gray-800">"J'ai vu la vie de la plus haute tour de Florence et j'ai vu la mort dans les ruelles les plus sombres de Venise. Mais le plus grand spectacle que j'ai vu, c'est de voir un homme libre se battre pour ses convictions. C'est un spectacle qui ne se refuse pas."</p>
-            <div class="flex items-center mt-2">
-                <button id="post-like-button-9" class="post-like-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform" onclick="handlePostLike('post-9')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 10.5a.5.5 0 01.5-.5h1.284A.5.5 0 014.28 10h1.44a.5.5 0 01.496.46l.72 4.319a.5.5 0 01-.497.541H6.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 019.22 10.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H13.5a.5.5 0 01-.5-.5v-4zm5-2a.5.5 0 01.5-.5h1.72a.5.5 0 01.496.541l.263 2.112A.5.5 0 0115.22 8.5h1.44a.5.5 0 01.496.541l.72 4.319a.5.5 0 01-.497.541H18.5a.5.5 0 01-.5-.5V8.5a.5.5 0 01.5-.5H18a.5.5 0 01.5-.5z"/>
-                    </svg>
-                    J'aime
-                </button>
-                <span id="post-like-count-9" class="ml-2 text-sm text-gray-700">0</span>
-                <button onclick="toggleComments('post-9')" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 text-sm rounded-full shadow-lg transition duration-300 transform">
-                    Commentaires (<span id="comment-count-9">0</span>)
-                </button>
-            </div>
-            <div id="comments-section-post-9" class="hidden mt-4 p-3 bg-gray-100 rounded-lg">
-                <h3 class="font-semibold text-gray-700 text-sm mb-2">Commentaires</h3>
-                <div id="comments-container-post-9" class="text-sm text-gray-600 space-y-2"></div>
-                <form class="mt-4" onsubmit="handleCommentSubmit(event, 'post-9')">
-                    <input type="text" class="w-full p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" placeholder="Votre pseudo" required>
-                    <textarea class="w-full mt-2 p-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-700" rows="2" placeholder="Écrivez un commentaire..." required></textarea>
-                    <button type="submit" class="mt-2 w-full bg-yellow-700 hover:bg-yellow-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300">
-                        Envoyer
-                    </button>
-                </form>
-            </div>
+            <p class="text-gray-500 text-sm">Il y a 3 semaines</p>
+            <p class="mt-2 text-gray-800">"Al Mualim a trahi l'Ordre et le Crédo. Sa quête de pouvoir a été sa chute. La vérité ne se plie pas à la volonté d'un seul homme."</p>
         </div>
     </div>
 </div>
-
-<div id="imageModal" class="image-modal-overlay">
-    <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
-    <div class="image-modal-content">
-        <img id="enlargedImage" src="" alt="Image en grand">
-    </div>
-</div>
-
-<button onclick="toggleChat()" class="fixed bottom-4 right-4 bg-yellow-700 hover:bg-yellow-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 transform z-50">
-    Parler à Ezio
-</button>
-
-<div id="chat-container" class="chat-container">
-    <div class="chat-header">
-        <h3 class="font-bold">Ezio Auditore</h3>
-        <button onclick="toggleChat()" class="text-white text-xl leading-none">&times;</button>
-    </div>
-    <div id="chat-messages" class="chat-messages">
-        <div class="message ezio">
-            <div class="bubble">"Bonjour. Quels mystères cherchez-vous à élucider ?"</div>
-        </div>
-    </div>
-    <div class="chat-input">
-        <input type="text" id="chat-input-field" placeholder="Écrivez votre message..." onkeydown="handleChatInput(event)">
-        <button onclick="sendMessage()" class="bg-yellow-700 hover:bg-yellow-800 text-white font-bold py-2 px-4 rounded-full transition duration-300">Envoyer</button>
-    </div>
-</div>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, updateDoc, increment, deleteDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-    // VOTRE CONFIGURATION FIREBASE PERSONNELLE
-    const firebaseConfig = {
-        apiKey: "AIzaSyB9DFVLDX8Bg6yV83euludDBXNBaqcfod8",
-        authDomain: "rs-ezio.firebaseapp.com",
-        projectId: "rs-ezio",
-        storageBucket: "rs-ezio.firebasestorage.app",
-        messagingSenderId: "217869367805",
-        appId: "1:217869367805:web:778c0b523c311ed0990194",
-        measurementId: "G-LYHPHBWQZ6"
-    };
-
-    // Votre clé API Gemini
-    const GEMINI_API_KEY = "AIzaSyC2Vz_Q8Xz-z...C25C2g";
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const chatHistory = [{ role: "model", parts: [{ text: "Bonjour. Quels mystères cherchez-vous à élucider ?" }] }];
-    const chat = model.startChat({
-        history: chatHistory,
-        generationConfig: { maxOutputTokens: 500 },
-        systemInstruction: "Tu es Ezio Auditore da Firenze, le célèbre maître Assassin de la Renaissance Italienne. Ton ton est confiant, sage, et parfois un peu taquin. Tu parles de ton époque, de ta famille, de tes amis (comme Leonardo da Vinci), de l'Ordre des Assassins et de ses préceptes. Tu fais référence à ton expérience en tant qu'Assassin. Ne dis jamais que tu es une intelligence artificielle ou un modèle de langage. Reste toujours dans le rôle d'Ezio."
-    });
-
-    // Fonctions pour le chat
-    async function sendMessage() {
-        const inputField = document.getElementById('chat-input-field');
-        const userMessage = inputField.value.trim();
-        if (userMessage === '') return;
-
-        displayMessage(userMessage, 'user');
-        inputField.value = '';
-
-        try {
-            const result = await chat.sendMessage(userMessage);
-            const response = await result.response;
-            const text = response.text();
-            displayMessage(text, 'ezio');
-        } catch (error) {
-            console.error("Erreur Gemini :", error);
-            displayMessage("Désolé, je suis occupé à surveiller les toits. Réessayez plus tard.", 'ezio');
-        }
-    }
-
-    function displayMessage(message, sender) {
-        const chatMessages = document.getElementById('chat-messages');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}`;
-        messageDiv.innerHTML = `<div class="bubble">${message}</div>`;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll vers le bas
-    }
-
-    function handleChatInput(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    }
-
-    window.toggleChat = function() {
-        const chatContainer = document.getElementById('chat-container');
-        chatContainer.style.display = chatContainer.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-
-    const appId = firebaseConfig.appId;
-    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-    
-    let userId = null;
-    const postIds = ['post-1', 'post-2', 'post-3', 'post-4', 'post-5', 'post-6', 'post-7', 'post-8', 'post-9'];
-
-    // Authentification de l'utilisateur
-    if (initialAuthToken) {
-        signInWithCustomToken(auth, initialAuthToken).catch(console.error);
-    } else {
-        signInAnonymously(auth).catch(console.error);
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            userId = user.uid;
-            document.getElementById('user-id').textContent = userId;
-            
-            // Likes du profil
-            const likesDocRef = doc(db, 'artifacts', appId, 'public/data/likes/ezio');
-            const likeButton = document.getElementById('like-button');
-            const userLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_profiles/ezio`);
-            
-            // Crée le document du compteur si nécessaire
-            const likesData = (await getDoc(likesDocRef)).data();
-            if (!likesData) {
-                await setDoc(likesDocRef, { count: 0 });
-            }
-
-            onSnapshot(likesDocRef, (docSnap) => {
-                const likeCountSpan = document.getElementById('like-count');
-                if (likeCountSpan) {
-                    const data = docSnap.exists() ? docSnap.data() : { count: 0 };
-                    likeCountSpan.textContent = data.count;
-                }
-            });
-            
-            const userLikedDoc = await getDoc(userLikedRef);
-            if (userLikedDoc.exists()) {
-                likeButton.textContent = 'Aimé ! ❤️';
-                likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-            }
-
-            likeButton.addEventListener('click', async () => {
-                const likedDoc = await getDoc(userLikedRef);
-                try {
-                    if (likedDoc.exists()) {
-                        await deleteDoc(userLikedRef);
-                        await updateDoc(likesDocRef, { count: increment(-1) });
-                        likeButton.textContent = 'J\'aime';
-                        likeButton.classList.remove('bg-pink-500', 'hover:bg-pink-600');
-                        likeButton.classList.add('bg-gray-300', 'hover:bg-gray-400');
-                    } else {
-                        await setDoc(userLikedRef, { likedAt: serverTimestamp() });
-                        await updateDoc(likesDocRef, { count: increment(1) });
-                        likeButton.textContent = 'Aimé ! ❤️';
-                        likeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                        likeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                    }
-                } catch (e) {
-                    console.error("Erreur de mise à jour du like du profil : ", e);
-                }
-            });
-
-            // Fonctions pour les publications
-            postIds.forEach(postId => {
-                // Likes des publications
-                const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-                
-                // Crée le document du compteur si nécessaire
-                getDoc(postLikesDocRef).then(docSnap => {
-                    if (!docSnap.exists()) {
-                        setDoc(postLikesDocRef, { count: 0 });
-                    }
-                });
-
-                onSnapshot(postLikesDocRef, (docSnap) => {
-                    const postLikeCountSpan = document.getElementById(`post-like-count-${postId.split('-')[1]}`);
-                    if (postLikeCountSpan) {
-                        const likesData = docSnap.exists() ? docSnap.data() : { count: 0 };
-                        postLikeCountSpan.textContent = likesData.count;
-                    }
-                });
-
-                // Commentaires des publications
-                const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                onSnapshot(commentsCollectionRef, (querySnapshot) => {
-                    const commentsContainer = document.getElementById(`comments-container-post-${postId.split('-')[1]}`);
-                    const commentCountSpan = document.getElementById(`comment-count-${postId.split('-')[1]}`);
-                    
-                    if (commentsContainer && commentCountSpan) {
-                        commentsContainer.innerHTML = '';
-                        const comments = [];
-                        querySnapshot.forEach((doc) => {
-                            comments.push(doc.data());
-                        });
-                        
-                        commentCountSpan.textContent = comments.length;
-                        comments.sort((a, b) => {
-                          if (!a.timestamp) return 1;
-                          if (!b.timestamp) return -1;
-                          return b.timestamp.toMillis() - a.timestamp.toMillis();
-                        });
-                        
-                        comments.forEach(comment => {
-                            const commentDiv = document.createElement('div');
-                            commentDiv.className = 'bg-gray-200 p-2 rounded-md mb-2';
-                            commentDiv.innerHTML = `<p class="font-semibold text-xs text-gray-800">${comment.pseudo}</p><p class="mt-1">${comment.text}</p>`;
-                            commentsContainer.appendChild(commentDiv);
-                        });
-                    }
-                });
-
-                // Mettre à jour les boutons de "j'aime" des publications au chargement
-                const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-                getDoc(postUserLikedRef).then(likedDoc => {
-                    const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
-                    if(likedDoc.exists() && postLikeButton) {
-                        postLikeButton.textContent = 'Aimé ! ❤️';
-                        postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                        postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                    }
-                });
-
-                // Fonction pour gérer les likes de chaque publication
-                window.handlePostLike = async (postId) => {
-                    const postLikesDocRef = doc(db, 'artifacts', appId, `public/data/post_likes/${postId}`);
-                    const postUserLikedRef = doc(db, 'artifacts', appId, `users/${userId}/liked_posts/${postId}`);
-                    const postLikeButton = document.getElementById(`post-like-button-${postId.split('-')[1]}`);
-                    
-                    const likedDoc = await getDoc(postUserLikedRef);
-                    try {
-                        if (likedDoc.exists()) {
-                            await deleteDoc(postUserLikedRef);
-                            await updateDoc(postLikesDocRef, { count: increment(-1) });
-                            postLikeButton.textContent = 'J\'aime';
-                            postLikeButton.classList.remove('bg-pink-500', 'hover:bg-pink-600');
-                            postLikeButton.classList.add('bg-gray-300', 'hover:bg-gray-400');
-                        } else {
-                            await setDoc(postUserLikedRef, { likedAt: serverTimestamp() });
-                            await updateDoc(postLikesDocRef, { count: increment(1) });
-                            postLikeButton.textContent = 'Aimé ! ❤️';
-                            postLikeButton.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                            postLikeButton.classList.add('bg-pink-500', 'hover:bg-pink-600');
-                        }
-                    } catch (e) {
-                        console.error("Erreur de mise à jour du like de la publication : ", e);
-                    }
-                };
-
-                // Fonction pour gérer les commentaires
-                window.handleCommentSubmit = async (event, postId) => {
-                    event.preventDefault();
-                    const pseudo = event.target.querySelector('input').value.trim();
-                    const commentText = event.target.querySelector('textarea').value.trim();
-                    
-                    if (commentText && pseudo) {
-                        const commentsCollectionRef = collection(db, 'artifacts', appId, `public/data/post_comments/${postId}/comments`);
-                        await addDoc(commentsCollectionRef, {
-                            userId: userId,
-                            pseudo: pseudo,
-                            text: commentText,
-                            timestamp: serverTimestamp()
-                        });
-                        event.target.reset(); // Réinitialiser le formulaire
-                    }
-                };
-            });
-        }
-    });
-
-    // Fonctions pour la modale d'image
-    window.openImageModal = function(src) {
-        const modal = document.getElementById('imageModal');
-        const enlargedImage = document.getElementById('enlargedImage');
-        enlargedImage.src = src;
-        modal.style.display = 'flex';
-    }
-
-    window.closeImageModal = function() {
-        const modal = document.getElementById('imageModal');
-        modal.style.display = 'none';
-    }
-
-    // Fonction pour afficher/masquer le champ de commentaires
-    window.toggleComments = (postId) => {
-        const commentsSection = document.getElementById(`comments-section-${postId}`);
-        if (commentsSection) {
-            commentsSection.classList.toggle('hidden');
-        }
-    };
-</script>
 
 </body>
 </html>
