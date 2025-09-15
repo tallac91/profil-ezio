@@ -17,6 +17,9 @@
             --color-border: #d4c5a5;
             --color-card-bg: #fffbf2;
             --color-interactive: #5a4b3c;
+            --color-button-bg: #a30000; /* Nouveau: couleur de bouton primaire */
+            --color-button-text: #fff;
+            --color-button-hover: #b90000;
         }
 
         /* --- Style Général de la Page --- */
@@ -58,6 +61,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 20px;
+            position: relative; /* Pour positionner correctement les éléments enfants */
         }
 
         .cover-photo {
@@ -71,10 +75,11 @@
 
         .profile-info {
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Aligner la photo et le texte en bas */
             padding: 0 20px 20px;
-            margin-top: -80px;
+            margin-top: -100px; /* Remonter la section pour qu'elle empiète sur la couverture */
             position: relative;
+            z-index: 1; /* S'assurer qu'elle est au-dessus de la couverture */
         }
 
         .profile-pic {
@@ -84,13 +89,31 @@
             border: 5px solid var(--color-parchment);
             margin-right: 20px;
             object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 2; /* Pour que la photo soit au-dessus du texte */
+        }
+
+        .profile-name-and-actions {
+            flex-grow: 1;
+            padding-top: 20px; /* Espace au-dessus du texte */
+            position: relative;
+            z-index: 0; /* Assure que le dégradé est derrière le texte et les boutons */
         }
 
         .profile-name h1 {
             margin: 0;
             font-size: 2.5em;
             color: white;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 1), -3px -3px 8px rgba(0, 0, 0, 1); /* Ombre forte pour la lisibilité */
+            line-height: 1.1;
+        }
+
+        .profile-name .bio-container {
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0)); /* Dégradé sombre transparent */
+            padding: 5px 10px 5px 0;
+            margin-top: 10px;
+            border-radius: 0 5px 5px 0;
+            display: inline-block; /* Pour que le dégradé ne prenne que la largeur du texte */
         }
 
         .profile-name .bio {
@@ -99,6 +122,7 @@
             color: white;
             font-size: 1.1em;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+            display: block; /* Pour que chaque ligne de bio soit sur sa propre ligne si nécessaire */
         }
         
         .profile-name .bio-translation {
@@ -107,6 +131,32 @@
             color: #dddddd;
             font-size: 0.85em;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            display: block;
+        }
+
+        .profile-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .profile-actions .action-button {
+            background-color: var(--color-red-accent);
+            color: var(--color-button-text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-headings);
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .profile-actions .action-button:hover {
+            background-color: var(--color-button-hover);
+            transform: translateY(-2px);
         }
 
         /* --- Contenu Principal (deux colonnes) --- */
@@ -298,6 +348,45 @@
             margin-top: 15px;
         }
 
+        /* Champ de commentaire de publication (sous les boutons d'action) */
+        .post > .comment-box { /* Cible le comment-box directement sous le .post */
+            display: none;
+            margin-top: 15px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fcfafa;
+        }
+        
+        .post > .comment-box textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: var(--font-main);
+            background-color: #fff;
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .post > .comment-box button {
+            background-color: var(--color-red-accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-headings);
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
+        }
+        
+        .post > .comment-box button:hover {
+            opacity: 0.9;
+        }
+
         .comment-thread {
             border-bottom: 1px solid var(--color-border);
             padding-bottom: 12px;
@@ -367,6 +456,40 @@
             color: var(--color-red-accent);
         }
         
+        .comment-reply-container { /* Conteneur pour le champ de réponse au commentaire */
+            display: none; /* Masqué par défaut */
+            margin-left: 45px; /* Aligner avec les réponses existantes */
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--color-border);
+        }
+
+        .comment-reply-container textarea {
+            width: calc(100% - 10px); /* Ajuster la largeur */
+            box-sizing: border-box;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            padding: 8px;
+            font-family: var(--font-main);
+            background-color: #fff;
+            min-height: 40px;
+            resize: vertical;
+        }
+
+        .comment-reply-container button {
+            background-color: var(--color-red-accent);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-headings);
+            margin-top: 8px;
+            display: block;
+            margin-left: auto;
+            font-size: 0.85em;
+        }
+
         .comment-reply {
             display: flex;
             align-items: flex-start;
@@ -388,41 +511,6 @@
         .comment-reply strong {
             color: var(--color-red-accent);
             display: block;
-        }
-        
-        /* --- Champ de commentaire caché --- */
-        .comment-box {
-            display: none;
-            margin-top: 15px;
-        }
-        
-        .comment-box textarea {
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid var(--color-border);
-            border-radius: 5px;
-            padding: 10px;
-            font-family: var(--font-main);
-            background-color: #fff;
-            min-height: 60px;
-            resize: vertical;
-        }
-
-        .comment-box button {
-            background-color: var(--color-red-accent);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: var(--font-headings);
-            margin-top: 10px;
-            display: block;
-            margin-left: auto;
-        }
-        
-        .comment-box button:hover {
-            opacity: 0.9;
         }
         
         /* --- STYLES POUR LE CHAT AVEC L'IA --- */
@@ -570,10 +658,18 @@
             <div class="cover-photo"></div>
             <div class="profile-info">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" alt="Portrait de Ezio Auditore" class="profile-pic">
-                <div class="profile-name">
-                    <h1>Ezio Auditore da Firenze</h1>
-                    <p class="bio">"Nobile Fiorentino, Assassino e Mentore dell'Ordine."</p>
-                    <p class="bio-translation">(Noble Florentin, Assassin et Mentor de l'Ordre.)</p>
+                <div class="profile-name-and-actions">
+                    <div class="profile-name">
+                        <h1>Ezio Auditore da Firenze</h1>
+                        <div class="bio-container">
+                            <p class="bio">"Nobile Fiorentino, Assassino e Mentore dell'Ordine."</p>
+                            <p class="bio-translation">(Noble Florentin, Assassin et Mentor de l'Ordre.)</p>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="action-button">Ajouter aux amis</button>
+                        <button class="action-button">Suivre</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -692,6 +788,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                    <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                     <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -701,6 +801,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -724,6 +828,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -761,6 +869,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -770,6 +882,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -793,6 +909,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -830,6 +950,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -839,6 +963,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -862,6 +990,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -888,6 +1020,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -899,6 +1035,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -923,13 +1063,17 @@
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
                                     </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
+                                    </div>
                                 </div>
                             </div>
                              <div class="comment-reply">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtuXJl9rlAVu6swHGqy8qvW-ldqFAwG1aBw&s" class="reply-author-pic" alt="Ezio">
                                 <div class="comment-body">
                                     <strong>Ezio Auditore:</strong>
-                                    <span data-original-fr="Leonardo, mon ami... Je les récupérerai. Je te le promets." data-translation-it="Leonardo, amico mio... Le recupererò. Te lo prometto.">Leonardo, mon ami... Je les récupérerai. Je te le promets.</span>
+                                    <span data-original-fr="Leonardo, mon ami... Je les récupérerai. Je te le promets." data-translation-it="Leonardo, amico mio... Le recupererò. Te le prometto.">Leonardo, mon ami... Je les récupérerai. Je te le promets.</span>
                                     <button class="translate-comment-btn">Traduction originale</button>
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
@@ -959,6 +1103,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -970,6 +1118,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -993,6 +1145,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -1030,6 +1186,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -1039,6 +1199,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -1064,6 +1228,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -1101,6 +1269,10 @@
                         <button class="action-btn like-btn">❤️ J'aime</button>
                         <button class="action-btn comment-btn">💬 Commenter</button>
                     </div>
+                     <div class="comment-box">
+                        <textarea placeholder="Écrivez un commentaire..."></textarea>
+                        <button>Publier</button>
+                    </div>
                      <div class="post-comments">
                         <div class="comment-thread">
                             <div class="comment">
@@ -1110,6 +1282,10 @@
                                     <div class="comment-actions">
                                         <button class="comment-action-btn comment-like-btn">👍 Aimer</button>
                                         <button class="comment-action-btn comment-reply-btn">💬 Répondre</button>
+                                    </div>
+                                    <div class="comment-reply-container">
+                                        <textarea placeholder="Répondre au commentaire..."></textarea>
+                                        <button>Répondre</button>
                                     </div>
                                 </div>
                             </div>
@@ -1173,19 +1349,25 @@
                 }
             });
 
-            // --- GESTION DES BOUTONS "COMMENTER" ---
+            // --- GESTION DES BOUTONS "COMMENTER" (pour les publications) ---
             document.body.addEventListener('click', function(e) {
                 if (e.target.matches('.comment-btn')) {
                     const post = e.target.closest('.post');
-                    let commentBox = post.querySelector('.comment-box');
-                    if (!commentBox) {
-                        const newBox = document.createElement('div');
-                        newBox.className = 'comment-box';
-                        newBox.innerHTML = `<textarea placeholder="Écrivez un commentaire..."></textarea><button>Publier</button>`;
-                        post.querySelector('.post-comments').appendChild(newBox);
-                        commentBox = newBox;
+                    const commentBox = post.querySelector('.comment-box'); // Cible le comment-box de la publication
+                    if (commentBox) {
+                        commentBox.style.display = (commentBox.style.display === 'block') ? 'none' : 'block';
                     }
-                    commentBox.style.display = (commentBox.style.display === 'block') ? 'none' : 'block';
+                }
+            });
+
+            // --- GESTION DES BOUTONS "RÉPONDRE" (pour les commentaires spécifiques) ---
+            document.body.addEventListener('click', function(e) {
+                if (e.target.matches('.comment-reply-btn')) {
+                    const commentBody = e.target.closest('.comment-body');
+                    const replyContainer = commentBody.querySelector('.comment-reply-container');
+                    if (replyContainer) {
+                        replyContainer.style.display = (replyContainer.style.display === 'block') ? 'none' : 'block';
+                    }
                 }
             });
 
@@ -1266,7 +1448,7 @@
                     return;
                 }
                 
-                addMessage("...", "ezio");
+                addMessage("...", "ezio"); // Message de chargement
                 
                 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY;
                 const ezioPrompt = `Tu es Ezio Auditore da Firenze, un Maître Assassin de la Renaissance italienne. Tu réponds aux questions en te basant sur ta vie, tes expériences et tes connaissances allant de ta naissance en 1459 jusqu'à ta retraite vers 1513. Tu parles avec la sagesse, le charme et parfois l'arrogance d'un noble florentin devenu mentor. Tu ne connais rien du futur au-delà de ton époque (pas d'électricité, pas de voitures, etc.). Tu dois toujours rester dans ton personnage. Ne révèle JAMAIS que tu es une intelligence artificielle. L'utilisateur te dit : "${userInput}"`;
@@ -1281,6 +1463,7 @@
                     if (!response.ok) throw new Error(`Erreur de l'API: ${response.statusText}`);
 
                     const data = await response.json();
+                    // Assurez-vous que la réponse contient du texte
                     const ezioText = data.candidates[0].content.parts[0].text;
                     
                     const loadingMessage = chatMessages.querySelector('.message:last-child');
@@ -1288,7 +1471,7 @@
 
                 } catch (error) {
                     console.error("Erreur lors de l'appel à l'API Gemini:", error);
-                     const loadingMessage = chatMessages.querySelector('.message:last-child');
+                    const loadingMessage = chatMessages.querySelector('.message:last-child');
                     loadingMessage.textContent = "Scusate, j'ai l'esprit ailleurs... Veuillez répéter votre question.";
                 }
             }
